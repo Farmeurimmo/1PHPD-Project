@@ -1,5 +1,18 @@
 # 1PHPD
 
+## Installation
+
+Create a `config.php` file with the following content (please replace the values with your own):
+
+```php
+<?php
+const DB_HOST = 'host';
+const DB_USERNAME = 'username';
+const DB_PASSWORD = 'password';
+const DB_DATABASE = 'database';
+const DB_PORT = '3306';
+```
+
 ## Database
 
 * **VOD** (id, title, image, shot_plot, long_plot, id_director, price, release_date, category)
