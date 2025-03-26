@@ -1,8 +1,21 @@
-# 1PHPD
+# 1PHPD Project
+
+## Requirements
+
+- PHP 8.4
+- Apache web server
+- MySQL or MariaDB server
 
 ## Installation
 
-Create a `config.php` file with the following content (please replace the values with your own):
+### Import the .sql file
+
+On your phpMyAdmin, in the desired database, import the `sql/1PHPD.sql` file.
+
+### Configuration
+
+Create a `DatabaseConfig.php` file in `config` directory with the following content (please replace the values with your
+own):
 
 ```php
 <?php
