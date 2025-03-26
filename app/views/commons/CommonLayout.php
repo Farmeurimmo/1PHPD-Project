@@ -8,15 +8,15 @@
 </head>
 <body>
 
-<?php include "CommonHeaderView.php"; ?>
+<?php include_once "CommonHeaderView.php"; ?>
 
 <main>
     <?php if (isset($view)) {
-        include $view;
+        include_once $view;
     } ?>
 </main>
 
-<?php include "CommonFooterView.php"; ?>
+<?php include_once "CommonFooterView.php"; ?>
 
 </body>
 </html>
