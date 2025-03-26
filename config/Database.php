@@ -1,6 +1,6 @@
 <?php
 
-include_once "DatabaseConfig.php";
+require_once "DatabaseConfig.php";
 
 class Database {
     private static $instance = null;

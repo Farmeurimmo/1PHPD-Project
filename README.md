@@ -10,7 +10,7 @@
 
 ### Import the .sql file
 
-On your phpMyAdmin, in the desired database, import the `sql/1PHPD.sql` file.
+On your phpMyAdmin, in the desired database, import the `1PHPD.sql` file located in the `sql` directory.
 
 ### Configuration
 
@@ -25,6 +25,7 @@ const DB_PASSWORD = 'password';
 const DB_DATABASE = 'database';
 const DB_PORT = '3306';
 ```
+The user should have all privileges on the database to prevent any issues.
 
 ## Database
 
