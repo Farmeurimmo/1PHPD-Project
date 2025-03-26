@@ -44,3 +44,5 @@ The user should have all privileges on the database to prevent any issues.
 * **Users** (id, username, password(hashed), email, films_purchased)
 
 * **Film_purchased** (id, id_user, id_film)
+
+* **Session/Token** (id, id_user, token, expiration_date) (For authentication)
