@@ -29,20 +29,20 @@ The user should have all privileges on the database to prevent any issues.
 
 ## Database
 
-* **VOD** (id, title, image, shot_plot, long_plot, id_director, price, release_date, category)
+* **vods** (id, title, image, short_plot, long_plot, director_id, price, release_date)
 
-* **VOD_Category** (id, id_vod, id_category)
+* **vod_categories** (id, vod_id, category_id)
 
-* **Director** (id, first_name, last_name, films)
+* **directors** (id, first_name, last_name)
 
-* **Actor** (id, first_name, last_name, films)
+* **actors** (id, first_name, last_name)
 
-* **Actor_film** (id, id_actor, id_film)
+* **actor_films** (id, actor_id, vod_id)
 
-* **Category** (id, name)
+* **categories** (id, name)
 
-* **Users** (id, username, password(hashed), email, films_purchased)
+* **users** (id, username, password_hashed, email, role, created_at, updated_at)
 
-* **Film_purchased** (id, id_user, id_film)
+* **films_purchased** (id, user_id, vod_id, purchase_date)
 
-* **Session/Token** (id, id_user, token, expiration_date) (For authentication)
+* **sessions** (id, user_id, token, expiration_date)
