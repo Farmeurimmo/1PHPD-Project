@@ -10,7 +10,8 @@ class Router {
     public function dispatch($uri) {
         //FIXME: redirect to 404 page if route not found or if controller or action not found
 
-        if (!isset($this->routes[$uri])) {
+        $parsedUrl = parse_url($uri, PHP_URL_PATH);
+        if (!isset($this->routes[$parsedUrl])) {
             $this->sendError(404, "404 Not Found");
         }
 
