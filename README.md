@@ -90,7 +90,8 @@ CREATE TABLE vods
 (
     id           INT PRIMARY KEY AUTO_INCREMENT,
     title        VARCHAR(255)   NOT NULL,
-    image        VARCHAR(255),
+    image        VARCHAR(512)   NOT NULL,
+    trailer      VARCHAR(512)   NOT NULL,
     short_plot   TEXT,
     long_plot    TEXT,
     director_id  INT,
@@ -184,9 +185,10 @@ IGNORE INTO directors (first_name, last_name) VALUES ('Frank', 'Darabont');
 
 INSERT
 IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
-       VALUES ("The Shawshank Redemption", "/1PHPD/public/assets/vods/evades/evades.jpg",
-       "Le banquier Andy Dufresne est arrêté pour avoir tué sa femme et son amant. Après une dure adaptation, il tente d'améliorer les conditions de la prison et de redonner de l'espoir à ses compagnons.",
-       "LONG PLOT: Le banquier Andy Dufresne est arrêté pour avoir tué sa femme et son amant. Après une dure adaptation, il tente d'améliorer les conditions de la prison et de redonner de l'espoir à ses compagnons.",
+       VALUES ("The Shawshank Redemption", "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_.jpg",
+       "https://imdb-video.media-imdb.com/vi3877612057/1434659607842-pgv4ql-1616202333253.mp4?Expires=1743679714&Signature=uah7T~BcJiDQ68U3yejNfk0wI3RjetgjJWEClloaXSZ0keUHsLLOKENl1-~ceBBXoWCgbG5NWvHVFPxO7X3hpRxYKa41INVxj7nzYKuVk~Iihhpzeq-JlGko59Me-f7HcAe2tuFfCYDsg4Ne2UIX~lVM4Vblr2mV3vUcA4tBLe2gMWIICOs3bAw6n974jejIys~M~ep7TFlOeIEMHeJbL~2ydJatSxziRElDQNY-d5cMpXnDJBOr8vckqRtItYUyWVqti8jGO--wZmeXbP8~7rmx7BY0zUS90aklhd3b6JEpUewcVg5AdH4PPIOrYuQsP5slmlw~2ZAkCJ3RF65BjQ__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA",
+       "A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
+       "LONG PLOT: A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
        31,
        11.99,
        '1994-09-23');
@@ -224,9 +226,10 @@ IGNORE INTO directors (first_name, last_name) VALUES ('Francis', 'Ford Coppola')
 
 INSERT
 IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
-       VALUES ("The Godfather", "/1PHPD/public/assets/vods/godfather/godfather.jpg",
-       "Le patriarche de la famille Corleone, Don Vito Corleone, est un homme respecté et craint dans le milieu du crime organisé. Son fils Michael, qui ne veut pas suivre les traces de son père, se retrouve malgré lui impliqué dans les affaires familiales.",
-       "LONG PLOT: Le patriarche de la famille Corleone, Don Vito Corleone, est un homme respecté et craint dans le milieu du crime organisé. Son fils Michael, qui ne veut pas suivre les traces de son père, se retrouve malgré lui impliqué dans les affaires familiales.",
+       VALUES ("The Godfather", "https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_.jpg",
+       "https://imdb-video.media-imdb.com/vi1348706585/1434659607842-pgv4ql-1616202346191.mp4?Expires=1743679782&Signature=Xwskqq0t9JwS7AHBkZJ0ee3HcC~zZxUvK0mI~9EWpC3J71vVXfvXuz-hwBeejg1-UxXLDLV~g1SO9UV~0LfignCw-YQYaRTyINAhm7uqsyjU7D9arDWZIhJZYBbWVlU0b-C6A3s1accd-Ve247oLy74GaKSFEjLJWfaTpwzbAvFVmbUT5arZbzr8lNjD4GCTtGTTyqAMh36SV68UMjniV-Z1ZCVO8mdF20lUmRmfMBDHaszIT0x1PJL7JllRxdFbPP2gTNo-09peGbPhA2gdFr91gNadnnvOR8QJmii~ct4C1CgnqVhN363v3yHa5Ik0AzkFTIQDZ0ohrynV-xTdsw__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA",
+       "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
+       "LONG PLOT: The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
        32,
        12.99,
        '1972-03-24');
