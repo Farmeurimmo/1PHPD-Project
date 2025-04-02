@@ -1,0 +1,22 @@
+:root {
+    --off-white: #faf9f6;
+    --off-black: #313134;
+
+    --blue: #8bb9ff;
+    --light-blue: #5ed0ff;
+    --teal: #47e2d1;
+    --light-teal: #9deee3;
+    --pink: #ff9cb3;
+    --dark-pink: #d07289;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'LexieReadable', sans-serif;
+    font-size: 18px;
+    text-align: left;
+    line-height: 1.5;
+    color: var(--off-white);
+    background-color: var(--off-black);
+}
