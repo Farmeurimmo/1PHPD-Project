@@ -1,6 +1,6 @@
 <?php
 
-if (session_status() == PHP_SESSION_NONE) {
+if (session_status() != PHP_SESSION_ACTIVE) {
     session_start();
 }
 
@@ -19,6 +19,9 @@ require_once '../app/core/Router.php';
 $router = new Router();
 
 $router->addRoute('/', 'HomeController', 'index');
+$router->addRoute('/auth/', 'UserAuthController', 'index');
+$router->addRoute('/auth/register', 'UserAuthController', 'register');
+$router->addRoute('/auth/login', 'UserAuthController', 'login');
 
 $parsedUrl = str_replace('/1PHPD', '', $_SERVER['REQUEST_URI']);
 $router->dispatch($parsedUrl);
