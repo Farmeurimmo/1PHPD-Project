@@ -11,6 +11,11 @@ class UserAuthController extends BaseController {
     }
 
     public function index() {
+        if ($this->userModel->isLoggedIn()) {
+            header("Location: /1PHPD/");
+            exit(200);
+        }
+
         $this->renderView("UserAuthView", ["title" => "Sign In or Sign Up"]);
     }
 
