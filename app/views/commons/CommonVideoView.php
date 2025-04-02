@@ -4,9 +4,11 @@
         echo '<img src="' . htmlspecialchars($vod['image']) . '" alt="' . htmlspecialchars($vod['title']) . '">';
         echo '<div class="cardinfo">';
         echo '<h3>' . htmlspecialchars($vod['title']) . '</h3>';
+        echo '<span>';
         echo '<h4>' . htmlspecialchars($vod['price']) . '€</h4>';
-        echo '<p>' . htmlspecialchars($vod['short_plot']) . '</p>';
         echo '<i class="fa-solid fa-cart-plus"></i>';
+        echo '</span>';
+        echo '<p>' . htmlspecialchars($vod['short_plot']) . '</p>';
         echo '</div>';
         echo '</div>';
     }
