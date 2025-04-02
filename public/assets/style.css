@@ -10,6 +10,20 @@
     --dark-pink: #d07289;
 }
 
+@font-face {
+    font-family: 'LexieReadable';
+    src: url('./font/LexieReadable-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'LexieReadable';
+    src: url('./font/LexieReadable-Bold.ttf') format('truetype');
+    font-weight: bold;
+    font-style: normal;
+}
+
 body {
     margin: 0;
     padding: 0;
