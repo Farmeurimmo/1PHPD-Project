@@ -56,12 +56,6 @@ The user should have all privileges on the database to prevent any issues.
 * **sessions** (id, user_id, token, expiration_date)
 
 ```sql
-CREATE TABLE categories
-(
-    id   INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(100) UNIQUE NOT NULL
-);
-
 CREATE TABLE users
 (
     id              INT PRIMARY KEY AUTO_INCREMENT,
@@ -70,6 +64,12 @@ CREATE TABLE users
     email           VARCHAR(255) UNIQUE NOT NULL,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE categories
+(
+    id   INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) UNIQUE NOT NULL
 );
 
 CREATE TABLE actors
@@ -138,4 +138,96 @@ CREATE TABLE sessions
     expiration_date TIMESTAMP           NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
 );
+```
+
+### Adding films
+
+```sql
+INSERT
+IGNORE INTO categories (name) VALUES (?);
+       
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES (?, ?);
+       
+INSERT
+IGNORE INTO directors (first_name, last_name) VALUES (?, ?);
+       
+INSERT
+IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
+VALUES (?, ?, ?, ?, ?, ?, ?);
+       
+INSERT
+IGNORE INTO vod_categories (vod_id, category_id) VALUES (?, ?);
+       
+INSERT
+IGNORE INTO actor_films (actor_id, vod_id) VALUES (?, ?);
+```
+
+Adding the film "The Shawshank Redemption"
+
+```sql
+
+INSERT
+IGNORE INTO categories (name) VALUES ('Drama');
+       
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Tim', 'Robbins');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Morgan', 'Freeman');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Bob', 'Gunton');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('William', 'Sadler');
+       
+INSERT
+IGNORE INTO directors (first_name, last_name) VALUES ('Frank', 'Darabont');
+
+INSERT
+IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
+       VALUES ("The Shawshank Redemption", "/1PHPD/public/assets/vods/evades/evades.jpg",
+       "Le banquier Andy Dufresne est arrêté pour avoir tué sa femme et son amant. Après une dure adaptation, il tente d'améliorer les conditions de la prison et de redonner de l'espoir à ses compagnons.",
+       "LONG PLOT: Le banquier Andy Dufresne est arrêté pour avoir tué sa femme et son amant. Après une dure adaptation, il tente d'améliorer les conditions de la prison et de redonner de l'espoir à ses compagnons.",
+       31,
+       11.99,
+       '1994-09-23');
+```
+
+Adding the film "The Godfather"
+
+```sql
+INSERT
+IGNORE INTO categories (name) VALUES ('Crime');
+INSERT
+IGNORE INTO categories (name) VALUES ('Drama');
+
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Marlon', 'Brando');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Al', 'Pacino');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('James', 'Caan');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Richard', 'S. Castellano');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Robert', 'Duvall');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Sterling', 'Hayden');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('John', ' Marley');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Richard', 'Conte');
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ('Diane', 'Keaton');
+
+INSERT
+IGNORE INTO directors (first_name, last_name) VALUES ('Francis', 'Ford Coppola');
+
+INSERT
+IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
+       VALUES ("The Godfather", "/1PHPD/public/assets/vods/godfather/godfather.jpg",
+       "Le patriarche de la famille Corleone, Don Vito Corleone, est un homme respecté et craint dans le milieu du crime organisé. Son fils Michael, qui ne veut pas suivre les traces de son père, se retrouve malgré lui impliqué dans les affaires familiales.",
+       "LONG PLOT: Le patriarche de la famille Corleone, Don Vito Corleone, est un homme respecté et craint dans le milieu du crime organisé. Son fils Michael, qui ne veut pas suivre les traces de son père, se retrouve malgré lui impliqué dans les affaires familiales.",
+       32,
+       12.99,
+       '1972-03-24');
 ```
