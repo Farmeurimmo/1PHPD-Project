@@ -8,6 +8,13 @@
 
 ## Installation
 
+Two options are available for installation:
+
+1. If using docker or something else, bind your web server to the `1PHPD` directory and go to `localhost:8000/` in your
+   browser.
+2. If using XAMPP or equivalent, place the `1PHPD` directory in the `htdocs` folder and go to `localhost/1PHPD` in your
+   browser.
+
 ### Import the .sql file
 
 On your phpMyAdmin, in the desired database, import the `1PHPD.sql` file located in the `sql` directory.
@@ -25,6 +32,7 @@ const DB_PASSWORD = 'password';
 const DB_DATABASE = 'database';
 const DB_PORT = '3306';
 ```
+
 The user should have all privileges on the database to prevent any issues.
 
 ## Database
@@ -46,3 +54,88 @@ The user should have all privileges on the database to prevent any issues.
 * **films_purchased** (id, user_id, vod_id, purchase_date)
 
 * **sessions** (id, user_id, token, expiration_date)
+
+```sql
+CREATE TABLE categories
+(
+    id   INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) UNIQUE NOT NULL
+);
+
+CREATE TABLE users
+(
+    id              INT PRIMARY KEY AUTO_INCREMENT,
+    username        VARCHAR(50) UNIQUE  NOT NULL,
+    password_hashed VARCHAR(255)        NOT NULL,
+    email           VARCHAR(255) UNIQUE NOT NULL,
+    created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE actors
+(
+    id         INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(100) NOT NULL,
+    last_name  VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE directors
+(
+    id         INT PRIMARY KEY AUTO_INCREMENT,
+    first_name VARCHAR(100) NOT NULL,
+    last_name  VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE vods
+(
+    id           INT PRIMARY KEY AUTO_INCREMENT,
+    title        VARCHAR(255)   NOT NULL,
+    image        VARCHAR(255),
+    short_plot   TEXT,
+    long_plot    TEXT,
+    director_id  INT,
+    price        DECIMAL(10, 2) NOT NULL,
+    release_date DATE           NOT NULL,
+    FOREIGN KEY (director_id) REFERENCES directors (id)
+);
+
+CREATE TABLE vod_categories
+(
+    id          INT PRIMARY KEY AUTO_INCREMENT,
+    vod_id      INT NOT NULL,
+    category_id INT NOT NULL,
+    FOREIGN KEY (vod_id) REFERENCES vods (id) ON DELETE CASCADE,
+    FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE,
+    UNIQUE (vod_id, category_id)
+);
+
+CREATE TABLE actor_films
+(
+    id       INT PRIMARY KEY AUTO_INCREMENT,
+    actor_id INT NOT NULL,
+    vod_id   INT NOT NULL,
+    FOREIGN KEY (actor_id) REFERENCES actors (id) ON DELETE CASCADE,
+    FOREIGN KEY (vod_id) REFERENCES vods (id) ON DELETE CASCADE,
+    UNIQUE (actor_id, vod_id)
+);
+
+CREATE TABLE films_purchased
+(
+    id            INT PRIMARY KEY AUTO_INCREMENT,
+    user_id       INT NOT NULL,
+    vod_id        INT NOT NULL,
+    purchase_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
+    FOREIGN KEY (vod_id) REFERENCES vods (id) ON DELETE CASCADE,
+    UNIQUE (user_id, vod_id)
+);
+
+CREATE TABLE sessions
+(
+    id              INT PRIMARY KEY AUTO_INCREMENT,
+    user_id         INT                 NOT NULL,
+    token           VARCHAR(255) UNIQUE NOT NULL,
+    expiration_date TIMESTAMP           NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+```
