@@ -20,4 +20,5 @@ $router = new Router();
 
 $router->addRoute('/', 'HomeController', 'index');
 
-$router->dispatch($_SERVER['REQUEST_URI']);
+$parsedUrl = str_replace('/1PHPD', '', $_SERVER['REQUEST_URI']);
+$router->dispatch($parsedUrl);
