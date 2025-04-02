@@ -1,8 +1,4 @@
 <nav>
-    <div class="hamburger" onclick="toggleMenu()">
-        <span>☰</span>
-    </div>
-
     <div id="navigation">
         <ul>
             <li><a href="#">Home</a></li>
