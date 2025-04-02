@@ -3,6 +3,7 @@
     --off-black: #313134;
 
     --blue: #8bb9ff;
+    --blue-shadow: rgb(139, 185, 255, 0.5);
     --light-blue: #5ed0ff;
     --teal: #47e2d1;
     --light-teal: #9deee3;
@@ -26,6 +27,7 @@
 
 body {
     margin: 0;
+    margin-top: 60px;
     padding: 0;
     font-family: 'LexieReadable', sans-serif;
     font-size: 18px;
@@ -33,4 +35,125 @@ body {
     line-height: 1.5;
     color: var(--off-white);
     background-color: var(--off-black);
+}
+
+/*********************************** Texts ***********************************/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+/*********************************** Menu ************************************/
+
+nav {
+    background-color: var(--blue);
+    position: fixed;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 0px;
+    top: 0;
+    z-index: 2;
+    box-shadow: 0 2px 5px var(--blue-shadow);
+    color: var(--off-black);
+}
+
+#navigation, .users {
+    gap: 20px;
+    width: 50%;
+    display: flex;
+}
+
+#navigation {
+    padding-left: 20px;
+    justify-content: flex-start;
+}
+
+.users {
+    padding-right: 20px;
+    justify-content: flex-end;
+}
+
+nav ul {
+    display: contents;
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    float: left;
+    position: relative;
+    margin: 0;
+}
+
+.category {
+    display: none;
+    position: absolute;
+    background-color: var(--blue);
+    width: 120%;
+    padding-top: 10px;
+    z-index: 3;
+}
+
+nav div > ul li:hover .category{
+    display: block;
+}
+
+.category li{
+    width: 100%;
+    text-align: left;
+    margin-left: 5px;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    width: 50%;
+    height: 20px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 20px;
+    z-index: 3;
+}
+
+.hamburger span {
+    color: inherit;
+}
+
+@media screen and (max-width: 500px) {
+    .hamburger {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    #navigation {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #navigation span {
+        margin: 0;
+    }
+
+    nav #navigation {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: var(--off-black);
+        width: 100%;
+        flex-direction: column;
+        display: none;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    nav #navigation span {
+        margin: 10px 0;
+    }
 }
