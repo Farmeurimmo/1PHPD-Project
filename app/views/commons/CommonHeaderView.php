@@ -1,6 +1,10 @@
 <nav>
+    <div class="hamburger" onclick="toggleMenu()">
+        <span>☰</span>
+    </div>
+
     <div id="navigation">
-        <ul id="navigation">
+        <ul>
             <li><a href="#">Home</a></li>
             <li>
                 <span>Category</span>
@@ -16,7 +20,7 @@
         <span>Sign In/Sign Up</span>
     </div>
     <div class="users" id="conected" style="display: none;">
-        <span>Cart</span>
-        <span>Profil</span>
+        <span><i class="fa-solid fa-cart-shopping"></i></span>
+        <span><i class="fa-solid fa-user"></i></span>
     </div>
 </nav>

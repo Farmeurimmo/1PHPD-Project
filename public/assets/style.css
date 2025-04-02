@@ -37,6 +37,13 @@ body {
     background-color: var(--off-black);
 }
 
+/*********************************** Texts ***********************************/
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
 /*********************************** Menu ************************************/
 
 nav {
@@ -60,7 +67,7 @@ nav {
 }
 
 #navigation {
-    padding-left: 10px;
+    padding-left: 20px;
     justify-content: flex-start;
 }
 
@@ -79,12 +86,6 @@ nav ul li {
     float: left;
     position: relative;
     margin: 0;
-}
-
-nav a {
-    display: block;
-    text-decoration: none;
-    color: inherit;
 }
 
 .category {
@@ -106,4 +107,53 @@ nav div > ul li:hover .category{
     margin-left: 5px;
     margin-top: 5px;
     padding: 10px;
+}
+
+.hamburger {
+    display: none;
+    flex-direction: column;
+    width: 50%;
+    height: 20px;
+    cursor: pointer;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 20px;
+    z-index: 3;
+}
+
+.hamburger span {
+    color: inherit;
+}
+
+@media screen and (max-width: 500px) {
+    .hamburger {
+        display: flex;
+        justify-content: flex-start;
+    }
+
+    #navigation {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    #navigation span {
+        margin: 0;
+    }
+
+    nav #navigation {
+        position: absolute;
+        top: 60px;
+        right: 0;
+        background-color: var(--off-black);
+        width: 100%;
+        flex-direction: column;
+        display: none;
+        padding: 10px 0;
+        text-align: center;
+    }
+
+    nav #navigation span {
+        margin: 10px 0;
+    }
 }
