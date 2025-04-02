@@ -34,3 +34,30 @@ body {
     color: var(--off-white);
     background-color: var(--off-black);
 }
+
+.grid {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 0.2fr));
+    gap: 20px;
+}
+
+.card {
+    height: fit-content;
+    text-align: left;
+    padding: 0px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.cardinfo {
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+}
+
+.card img {
+    width: 100%;
+    border-radius: 10px 10px 0 0;
+}
