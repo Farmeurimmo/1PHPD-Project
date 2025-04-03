@@ -74,7 +74,7 @@ class UserAuthController extends BaseController {
         }
     }
 
-    public function login($email, $password) {
+    public function login() {
         if ($_SERVER['REQUEST_METHOD'] != 'POST') {
             header("Location: /1PHPD/auth/");
             exit(400);
@@ -102,18 +102,19 @@ class UserAuthController extends BaseController {
         }
 
         try {
-            $user = $this->userModel->login($email, $password);
+            $this->userModel->login($email, $password);
 
-            if ($user) {
-                $_SESSION["user"] = $user;
-                header("Location: /1PHPD/");
-            } else {
-                $_SESSION["errorMessage"] = "Invalid email or password.";
-                header("Location: /1PHPD/auth/");
-            }
+            header("Location: /1PHPD/");
         } catch (Exception $e) {
-            $_SESSION["errorMessage"] = "An error occurred while logging in. Please try again later.";
+            $_SESSION["errorMessage"] = $e->getMessage();
             header("Location: /1PHPD/auth/");
         }
+    }
+
+    public function logout() {
+        if ($this->userModel->isLoggedIn()) {
+            $this->userModel->logout();
+        }
+        header("Location: /1PHPD/auth/");
     }
 }

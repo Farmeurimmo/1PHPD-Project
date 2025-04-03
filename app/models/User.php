@@ -102,4 +102,20 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
 
         return false;
     }
+
+    function logout() {
+        if (isset($_SESSION["userId"]) && isset($_SESSION["token"])) {
+            $sql = "DELETE FROM sessions WHERE user_id = :user_id AND token = :token";
+
+            $stmt = $this->db->prepare($sql);
+
+            $stmt->bindParam(':user_id', $_SESSION["userId"]);
+            $stmt->bindParam(':token', $_SESSION["token"]);
+
+            $stmt->execute();
+
+            unset($_SESSION["userId"]);
+            unset($_SESSION["token"]);
+        }
+    }
 }
