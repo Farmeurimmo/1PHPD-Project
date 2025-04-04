@@ -1,12 +1,12 @@
 <nav>
     <div id="navigation">
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="/1PHPD/">Home</a></li>
             <li>
                 <span>Category</span>
                 <ul class="category">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Comedy</a></li>
+                    <li><a href="/1PHPD/category/crime">Crime</a></li>
+                    <li><a href="/1PHPD/category/drama">Drama</a></li>
                 </ul>
             </li>
         </ul>
