@@ -22,19 +22,20 @@ class User {
         }
 
         try {
-            $this->generateSession($this->db->lastInsertId());
+            $this->generateSession($this->db->lastInsertId(), $username);
         } catch (Exception $e) {
             throw new Exception("Failed to create session");
         }
     }
 
-    function generateSession($userId) {
+    function generateSession($userId, $username) {
         $_SESSION["userId"] = $userId;
 
         $token = bin2hex(openssl_random_pseudo_bytes(32));
         $token = password_hash($token, PASSWORD_DEFAULT);
 
         $_SESSION["token"] = $token;
+        $_SESSION["username"] = $username;
 
         $sql = "INSERT INTO sessions (user_id, token, expiration_date) VALUES (:user_id, :token, :expiration_date) 
 ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
@@ -71,7 +72,7 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
         }
 
         try {
-            $this->generateSession($result['id']);
+            $this->generateSession($result['id'], $result['username']);
         } catch (Exception $e) {
             throw new Exception("Failed to create session");
         }
