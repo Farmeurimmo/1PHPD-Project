@@ -14,10 +14,10 @@
     <?php if (isset($_SESSION["username"])) : ?>
         <div class="users" id="conected" style="display: flex; gap: 30px;">
             <span><i class="fa-solid fa-cart-shopping"></i></span>
-            <div>
+            <a href="/1PHPD/my/profile">
                 <span><i class="fa-solid fa-user"></i></span>
                 <span><?php echo $_SESSION["username"]; ?></span>
-            </div>
+            </a>
         </div>
     <?php else : ?>
         <div class="users" id="notconected" style="display: flex;">

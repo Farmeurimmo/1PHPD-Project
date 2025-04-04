@@ -23,6 +23,8 @@ $router->addRoute('/auth/', 'UserAuthController', 'index');
 $router->addRoute('/auth/register', 'UserAuthController', 'register');
 $router->addRoute('/auth/login', 'UserAuthController', 'login');
 $router->addRoute("/auth/logout", 'UserAuthController', 'logout');
+$router->addRoute("/my/profile", 'MyController', 'myProfile');
+$router->addRoute("/my/films", 'MyController', 'myFilms');
 
 $parsedUrl = str_replace('/1PHPD', '', $_SERVER['REQUEST_URI']);
 $router->dispatch($parsedUrl);

@@ -119,4 +119,27 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
             unset($_SESSION["token"]);
         }
     }
+
+    function getUserFilms($userId) {
+        return [];
+    }
+
+    function getUserById($userId) {
+        $sql = "SELECT * FROM users WHERE id = :user_id";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+        if ($stmt->rowCount() == 0) {
+            throw new Exception("User not found");
+        }
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        unset($result['password_hashed']);
+
+        return $result;
+    }
 }
