@@ -13,7 +13,16 @@
     </div>
     <?php if (isset($_SESSION["username"])) : ?>
         <div class="users" id="conected" style="display: flex; gap: 30px;">
-            <span><i class="fa-solid fa-cart-shopping"></i></span>
+            <span><i class="fa-solid fa-cart-shopping"></i>
+                <?php if (isset($_COOKIE["cart"])) : ?>
+                    <?php
+                    echo count(json_decode($_COOKIE["cart"], true));
+                    ?>
+                <?php else : ?>
+                    <?php echo 0; ?>
+                <?php endif; ?>
+            </span>
+
             <a href="/1PHPD/my/profile">
                 <span><i class="fa-solid fa-user"></i></span>
                 <span><?php echo $_SESSION["username"]; ?></span>

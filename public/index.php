@@ -31,5 +31,7 @@ $router->addRoute("/my/films", 'MyController', 'myFilms');
 $router->addRoute("/category/crime", 'CategoryController', 'crime');
 $router->addRoute("/category/drama", 'CategoryController', 'drama');
 
+$router->addRoute("/cart/add", 'CartController', 'add');
+
 $parsedUrl = str_replace('/1PHPD', '', $_SERVER['REQUEST_URI']);
 $router->dispatch($parsedUrl);
