@@ -1,22 +1,36 @@
 <nav>
     <div id="navigation">
         <ul>
-            <li><a href="#">Home</a></li>
+            <li><a href="/1PHPD/">Home</a></li>
             <li>
                 <span>Category</span>
                 <ul class="category">
-                    <li><a href="#">Action</a></li>
-                    <li><a href="#">Comedy</a></li>
+                    <li><a href="/1PHPD/category/crime">Crime</a></li>
+                    <li><a href="/1PHPD/category/drama">Drama</a></li>
                 </ul>
             </li>
         </ul>
     </div>
-    <!-- If user not conected then id=notconected display flex -->
-    <div class="users" id="notconected" style="display: flex;">
-        <span>Sign In/Sign Up</span>
-    </div>
-    <div class="users" id="conected" style="display: none;">
-        <span><i class="fa-solid fa-cart-shopping"></i></span>
-        <span><i class="fa-solid fa-user"></i></span>
-    </div>
+    <?php if (isset($_SESSION["username"])) : ?>
+        <div class="users" id="conected" style="display: flex; gap: 30px;">
+            <span><i class="fa-solid fa-cart-shopping"></i>
+                <?php if (isset($_COOKIE["cart"])) : ?>
+                    <?php
+                    echo count(json_decode($_COOKIE["cart"], true));
+                    ?>
+                <?php else : ?>
+                    <?php echo 0; ?>
+                <?php endif; ?>
+            </span>
+
+            <a href="/1PHPD/my/profile">
+                <span><i class="fa-solid fa-user"></i></span>
+                <span><?php echo $_SESSION["username"]; ?></span>
+            </a>
+        </div>
+    <?php else : ?>
+        <div class="users" id="notconected" style="display: flex;">
+            <span><a href="/1PHPD/auth/">Sign In/Sign Up</a></span>
+        </div>
+    <?php endif; ?>
 </nav>

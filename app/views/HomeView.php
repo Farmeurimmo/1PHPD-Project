@@ -1,4 +1,3 @@
-
 <h1>Internet Movies DataBase & co</h1>
 <section id="about">
     <h2>About</h2>
