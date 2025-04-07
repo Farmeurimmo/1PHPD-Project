@@ -9,6 +9,11 @@ class CartController extends BaseController {
             exit(401);
         }
 
+        if (!isset($_SESSION["username"])) {
+            header('Location: /1PHPD/auth/login');
+            exit(401);
+        }
+
         $cart = isset($_COOKIE["cart"]) ? json_decode($_COOKIE["cart"], true) : [];
 
         $product_id = $_POST["vod_id"];
