@@ -27,7 +27,6 @@
 
 body {
     margin: 0;
-    margin-top: 60px;
     padding: 0;
     font-family: 'LexieReadable', sans-serif;
     font-size: 18px;
@@ -35,6 +34,10 @@ body {
     line-height: 1.5;
     color: var(--off-white);
     background-color: var(--off-black);
+}
+
+main {
+    padding: 50px 20px;
 }
 
 .grid {
@@ -45,12 +48,16 @@ body {
 }
 
 .card {
-    height: fit-content;
     text-align: left;
     padding: 0px;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     transition: transform 0.5s ease, box-shadow 0.5s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.8);
 }
 
 .cardinfo {
@@ -64,7 +71,44 @@ body {
     border-radius: 10px 10px 0 0;
 }
 
+.card span {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
 /*********************************** Texts ***********************************/
+
+h1 {
+    color: var(--light-blue);
+    text-align: center;
+}
+
+h2 {
+    color: var(--teal);
+}
+
+h3 {
+    color: var(--light-teal);
+    margin-block-start: 1em;
+    margin-block-end: 5px;
+}
+
+h4 {
+    color: var(--dark-pink);
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.card p {
+    margin-block-start: 5px;
+}
+
+.card i {
+    font-size: 1.2em;
+    color: var(--pink);
+    cursor: pointer;
+}
 
 a {
     text-decoration: none;
@@ -119,6 +163,7 @@ nav ul li {
     display: none;
     position: absolute;
     background-color: var(--blue);
+    box-shadow: 0 2px 5px var(--blue-shadow);
     width: 120%;
     padding-top: 10px;
     z-index: 3;
@@ -131,8 +176,8 @@ nav div > ul li:hover .category {
 .category li {
     width: 100%;
     text-align: left;
-    margin-left: 5px;
-    margin-top: 5px;
+    padding-left: 5px;
+    padding-top: 5px;
     padding: 10px;
 }
 
@@ -183,4 +228,16 @@ nav div > ul li:hover .category {
     nav #navigation span {
         margin: 10px 0;
     }
+}
+
+/********************************** Footer ***********************************/
+
+footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 30px;
+    min-height: 50vh;
 }
