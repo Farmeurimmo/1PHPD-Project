@@ -8,7 +8,7 @@ function videoCard($vod, $canBuy = true) {
     echo '<h4>' . htmlspecialchars($vod['price']) . '€</h4>';
 
     if ($canBuy) {
-        $vods = json_decode($_COOKIE["cart"], true);
+        $vods = isset($_COOKIE["cart"]) ? json_decode($_COOKIE["cart"], true) : [];
         $add = false;
         if (isset($vods[$vod['id']])) {
             $add = true;
