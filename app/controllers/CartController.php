@@ -5,12 +5,10 @@ require_once __DIR__ . "/../models/Vod.php";
 class CartController extends BaseController {
     function add() {
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
-            header('Location: /1PHPD');
-            exit(401);
+            exit(400);
         }
 
         if (!isset($_SESSION["username"])) {
-            header('Location: /1PHPD/auth/login');
             exit(401);
         }
 
@@ -23,18 +21,14 @@ class CartController extends BaseController {
 
             setcookie("cart", json_encode($cart), time() + (86400 * 30), "/1PHPD");
         }
-
-        header('Location: ' . (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/1PHPD'));
     }
 
     function remove() {
         if ($_SERVER["REQUEST_METHOD"] != "POST") {
-            header('Location: /1PHPD');
-            exit(401);
+            exit(400);
         }
 
         if (!isset($_SESSION["username"])) {
-            header('Location: /1PHPD/auth/login');
             exit(401);
         }
 
@@ -47,7 +41,5 @@ class CartController extends BaseController {
 
             setcookie("cart", json_encode($cart), time() + (86400 * 30), "/1PHPD");
         }
-
-        header('Location: ' . (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '/1PHPD'));
     }
 }

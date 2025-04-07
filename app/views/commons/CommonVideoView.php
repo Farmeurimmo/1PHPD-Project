@@ -12,7 +12,7 @@ function videoCard($vod) {
     if (isset($vods[$vod['id']])) {
         $add = true;
     }
-    echo '<form method="post" action="/1PHPD/cart/' . ($add ? 'remove' : 'add') . '">';
+    echo '<form method="post" class="cart-form" action="/1PHPD/cart/' . ($add ? 'remove' : 'add') . '">';
     echo '<input type="hidden" name="vod_id" value="' . htmlspecialchars($vod['id']) . '">';
     echo '<button type="submit" class="add-to-cart-button">';
 
