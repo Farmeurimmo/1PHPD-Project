@@ -95,10 +95,13 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
                 $expirationDate = new DateTime($result['expiration_date']);
                 $currentDate = new DateTime();
                 if ($currentDate > $expirationDate) {
+                    $this->logout();
                     return false;
                 }
                 return true;
             }
+
+            $this->logout();
         }
 
         return false;
@@ -117,6 +120,8 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
 
             unset($_SESSION["userId"]);
             unset($_SESSION["token"]);
+            unset($_SESSION["username"]);
+            unset($_SESSION["cart"]);
         }
     }
 
@@ -141,5 +146,9 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
         unset($result['password_hashed']);
 
         return $result;
+    }
+
+    function checkoutCart($userId, $cart) {
+
     }
 }

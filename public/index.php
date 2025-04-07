@@ -27,6 +27,8 @@ $router->addRoute("/auth/logout", 'UserAuthController', 'logout');
 
 $router->addRoute("/my/profile", 'MyController', 'myProfile');
 $router->addRoute("/my/films", 'MyController', 'myFilms');
+$router->addRoute("/my/cart", 'MyController', 'myCart');
+$router->addRoute("/my/cart/checkout", 'MyController', 'myCartCheckout');
 
 $router->addRoute("/category/crime", 'CategoryController', 'crime');
 $router->addRoute("/category/drama", 'CategoryController', 'drama');
