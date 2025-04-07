@@ -126,8 +126,6 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
     }
 
     function getUserFilms($userId) {
-        // get all films purchased by the user in the films_purchased table
-
         $sql = "SELECT vods.id, vods.image, vods.title, vods.short_plot, vods.director_id, vods.price, vods.release_date,
             directors.first_name, directors.last_name,
             GROUP_CONCAT(DISTINCT categories.name ORDER BY categories.name SEPARATOR ', ') AS categories_array
@@ -144,13 +142,8 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
 
         $stmt->bindParam(':user_id', $userId);
         $stmt->execute();
-        $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        if ($stmt->rowCount() == 0) {
-            throw new Exception("No films found for this user");
-        }
-
-        return $result;
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getUserById($userId) {
