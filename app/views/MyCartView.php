@@ -13,6 +13,6 @@
 </div>
 
 <h2>Buying</h2>
-<form method="post" action="/1PHPD/cart/checkout">
+<form method="post" action="/1PHPD/my/cart/checkout">
     <button type="submit" class="checkout-button">Checkout</button>
 </form>
