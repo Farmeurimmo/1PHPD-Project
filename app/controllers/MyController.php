@@ -79,11 +79,32 @@ class MyController extends BaseController {
         }
 
         $userId = $_SESSION["userId"];
-        $this->userModel->checkoutCart($userId, $cart);
 
-        setcookie("cart", json_encode([]), time() - 3600, "/1PHPD");
+        try {
+            $this->userModel->checkoutCart($userId, $cart);
 
-        header("Location: /1PHPD/my/cart");
-        exit(200);
+            setcookie("cart", json_encode([]), time() - 3600, "/1PHPD");
+        } catch (Exception $e) {
+            $_SESSION["errorMessage"] = $e->getMessage();
+        }
+
+        $brought = [];
+
+        foreach ($cart as $vodId => $quantity) {
+            try {
+                $vod = $this->vodModel->getVodData($vodId);
+                if ($vod) {
+                    $brought[] = $vod;
+                }
+            } catch (Exception $e) {
+            }
+        }
+
+        $totalPrice = 0;
+        foreach ($brought as $vod) {
+            $totalPrice += $vod["price"];
+        }
+
+        $this->renderView("MyCartBroughtView", ["title" => "My Cart brought", "cart" => $brought, "totalPrice" => $totalPrice]);
     }
 }

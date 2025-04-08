@@ -173,8 +173,15 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
         foreach ($cart as $vodId => $quantity) {
             $stmt->bindParam(':user_id', $userId);
             $stmt->bindParam(':vod_id', $vodId);
-            $stmt->execute();
+
+            try {
+                $stmt->execute();
+            } catch (Exception $e) {
+                throw new Exception("Already owning the film: " . $vodId . " - " . $e->getMessage());
+            }
         }
+
+        $_SESSION["brought"] = $cart;
 
         unset($_COOKIE["cart"]);
     }
