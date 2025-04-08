@@ -230,6 +230,103 @@ nav div > ul li:hover .category {
     }
 }
 
+/******************************** Sign In/UP *********************************/
+
+.auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.authcontainer {
+    gap: 20px;
+    min-width: 300px;
+    max-width: 0.3vw;
+    height: fit-content;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+}
+
+.signinup {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 100%;
+}
+.signin, .signup {
+    width: 50%;
+    text-align: center;
+    padding: 10px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.signin {
+    border-radius: 10px 0px 0px 0px;
+}
+
+.signup {
+    border-radius: 0px 10px 0px 0px;
+}
+
+.signform form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+}
+
+.field {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.field label {
+    width: 100%;
+    text-align: left;
+}
+
+.field input {
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+    border: none;
+    background-color: var(--off-white);
+    color: var(--off-black);
+}
+
+.field input:focus {
+    outline: none;
+    box-shadow: 0 0 5px var(--off-white);
+}
+
+.field input::placeholder {
+    color: var(--off-black);
+}
+
+.signform input[type="submit"] {
+    width: 60%;
+    padding: 10px;
+    background-color: var(--pink);
+    color: var(--off-black);
+    cursor: pointer;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+.signform input[type="submit"]:hover {
+    background-color: var(--dark-pink);
+    color: var(--off-white);
+}
+
 /********************************** Footer ***********************************/
 
 footer {
