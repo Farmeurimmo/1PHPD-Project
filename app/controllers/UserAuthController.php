@@ -112,9 +112,8 @@ class UserAuthController extends BaseController {
     }
 
     public function logout() {
-        if ($this->userModel->isLoggedIn()) {
-            $this->userModel->logout();
-        }
+        $this->userModel->logout();
+
         header("Location: /1PHPD/auth/");
     }
 }

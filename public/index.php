@@ -27,11 +27,14 @@ $router->addRoute("/auth/logout", 'UserAuthController', 'logout');
 
 $router->addRoute("/my/profile", 'MyController', 'myProfile');
 $router->addRoute("/my/films", 'MyController', 'myFilms');
+$router->addRoute("/my/cart", 'MyController', 'myCart');
+$router->addRoute("/my/cart/checkout", 'MyController', 'myCartCheckout');
 
 $router->addRoute("/category/crime", 'CategoryController', 'crime');
 $router->addRoute("/category/drama", 'CategoryController', 'drama');
 
 $router->addRoute("/cart/add", 'CartController', 'add');
+$router->addRoute("/cart/remove", 'CartController', 'remove');
 
 $parsedUrl = str_replace('/1PHPD', '', $_SERVER['REQUEST_URI']);
 $router->dispatch($parsedUrl);

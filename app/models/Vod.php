@@ -40,4 +40,24 @@ class Vod {
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public function getVodData($id) {
+        $sql = "
+        SELECT vods.id, vods.image, vods.title, vods.short_plot, vods.director_id, vods.price, vods.release_date,
+            directors.first_name, directors.last_name,
+            GROUP_CONCAT(DISTINCT categories.name ORDER BY categories.name SEPARATOR ', ') AS categories_array
+        FROM vods
+        INNER JOIN vod_categories ON vod_categories.vod_id = vods.id
+        INNER JOIN categories ON vod_categories.category_id = categories.id
+        INNER JOIN directors ON vods.director_id = directors.id
+        WHERE vods.id = :id
+        GROUP BY vods.id
+    ";
+
+        $query = $this->db->prepare($sql);
+        $query->bindParam(':id', $id, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetch(PDO::FETCH_ASSOC);
+    }
+
 }

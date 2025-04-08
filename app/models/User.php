@@ -95,10 +95,13 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
                 $expirationDate = new DateTime($result['expiration_date']);
                 $currentDate = new DateTime();
                 if ($currentDate > $expirationDate) {
+                    $this->logout();
                     return false;
                 }
                 return true;
             }
+
+            $this->logout();
         }
 
         return false;
@@ -117,11 +120,30 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
 
             unset($_SESSION["userId"]);
             unset($_SESSION["token"]);
+            unset($_SESSION["username"]);
+            unset($_COOKIE["cart"]);
         }
     }
 
     function getUserFilms($userId) {
-        return [];
+        $sql = "SELECT vods.id, vods.image, vods.title, vods.short_plot, vods.director_id, vods.price, vods.release_date,
+            directors.first_name, directors.last_name,
+            GROUP_CONCAT(DISTINCT categories.name ORDER BY categories.name SEPARATOR ', ') AS categories_array
+        FROM films_purchased
+        INNER JOIN vods ON films_purchased.vod_id = vods.id
+        INNER JOIN vod_categories ON vod_categories.vod_id = vods.id
+        INNER JOIN categories ON vod_categories.category_id = categories.id
+        INNER JOIN directors ON vods.director_id = directors.id
+        WHERE films_purchased.user_id = :user_id
+        GROUP BY vods.id
+        ";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     function getUserById($userId) {
@@ -141,5 +163,26 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
         unset($result['password_hashed']);
 
         return $result;
+    }
+
+    function checkoutCart($userId, $cart) {
+        $sql = "INSERT INTO films_purchased (user_id, vod_id) VALUES (:user_id, :vod_id)";
+
+        $stmt = $this->db->prepare($sql);
+
+        foreach ($cart as $vodId => $quantity) {
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->bindParam(':vod_id', $vodId);
+
+            try {
+                $stmt->execute();
+            } catch (Exception $e) {
+                throw new Exception("Already owning the film: " . $vodId . " - " . $e->getMessage());
+            }
+        }
+
+        $_SESSION["brought"] = $cart;
+
+        unset($_COOKIE["cart"]);
     }
 }
