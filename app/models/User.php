@@ -177,7 +177,7 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
             try {
                 $stmt->execute();
             } catch (Exception $e) {
-                throw new Exception("Already owning the film: " . $vodId . " - " . $e->getMessage());
+                throw new Exception("Already owning the film: " . $vodId);
             }
         }
 
