@@ -284,7 +284,6 @@ nav div > ul li:hover .category {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
     border-radius: 10px;
 }
-
 .signinup {
     display: flex;
     justify-content: center;
@@ -292,7 +291,7 @@ nav div > ul li:hover .category {
     flex-direction: row;
     width: 100%;
 }
-.signin, .signup {
+#signin, #signup {
     width: 50%;
     text-align: center;
     padding: 10px;
@@ -300,15 +299,16 @@ nav div > ul li:hover .category {
     cursor: pointer;
 }
 
-.signin {
+#signin {
     border-radius: 10px 0px 0px 0px;
 }
 
-.signup {
+#signup {
     border-radius: 0px 10px 0px 0px;
 }
 
 .signform form {
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
