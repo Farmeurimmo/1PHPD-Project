@@ -12,7 +12,7 @@
                     signinDiv.style.backgroundColor = "var(--off-black)";
                     signupDiv.style.backgroundColor = "rgb(25, 25, 25)";
                     formContainer.innerHTML = `
-                        <form method="POST" action="/1PHPD/auth/register">
+                        <form method="POST" action="/1PHPD/auth/login">
                             <div class="field">
                                 <label for="email">Email</label>
                                 <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
@@ -62,7 +62,7 @@
             </div>
         </div>
         <div class="signform">
-            <form method="POST" action="/1PHPD/auth/register">
+            <form method="POST" action="/1PHPD/auth/login">
                 <div class="field">
                     <label for="email">Email</label>
                     <input type="email" id="email" name="email" placeholder="exemple@email.com" required>
@@ -72,6 +72,10 @@
                     <input type="password" id="password" name="password" placeholder="Password" required>
                 </div>
                 <input type="submit" value="Sign In" name="signin">
+                <?php if (isset($_SESSION["errorMessage"])): ?>
+                    <div style="color: red;"><?= $_SESSION["errorMessage"] ?></div>
+                    <?php unset($_SESSION["errorMessage"]); ?>
+                <?php endif; ?>
             </form>
         </div>
     </div>

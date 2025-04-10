@@ -27,6 +27,17 @@
                 <span><i class="fa-solid fa-user"></i></span>
                 <span><?php echo $_SESSION["username"]; ?></span>
             </a>
+            <div class="dropdown">
+                <button class="dropbtn">
+                    <span><i class="fa-solid fa-user"></i></span>
+                    <span><?php echo $_SESSION["username"]; ?></span>
+                </button>
+                <div class="dropdown-content">
+                    <a href="#">My Profil</a>
+                    <a href="#">My Films</a>
+                    <a href="#">Sign Out</a>
+                </div>
+            </div>
         </div>
     <?php else : ?>
         <div class="users" id="notconected" style="display: flex;">
