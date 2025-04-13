@@ -12,9 +12,9 @@
         <div class="cart">
             <h1>You successfully bought:</h1>
 
-            <div class="grid">
+            <div class="cart-tab">
                 <?php foreach ($cart as $item): ?>
-                    <div class="card">
+                    <div class="cart-item">
                         <h2><?php echo $item["title"]; ?></h2>
                         <p>Price: <?php echo $item["price"]; ?>$</p>
                     </div>
