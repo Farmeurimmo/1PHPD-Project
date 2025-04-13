@@ -1,5 +1,5 @@
 <?php
-function videoCard($vod, $canBuy = true) {
+function videoCard($vod) {
     include_once __DIR__ . "/../../models/User.php";
     echo '<div class="card">';
     echo '<img src="' . htmlspecialchars($vod['image']) . '" alt="' . htmlspecialchars($vod['title']) . '">';
