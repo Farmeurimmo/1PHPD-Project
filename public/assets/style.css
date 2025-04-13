@@ -9,6 +9,7 @@
     --light-teal: #9deee3;
     --pink: #ff9cb3;
     --dark-pink: #d07289;
+    --green: #16c585;
 }
 
 @font-face {
@@ -104,10 +105,17 @@ h4 {
     margin-block-start: 5px;
 }
 
-.card i {
+.add-to-cart-button {
     font-size: 1.2em;
+    background-color: inherit;
+    border: none;
     color: var(--pink);
     cursor: pointer;
+    transition: color 0.5s ease;
+}
+
+.add-to-cart-button:hover {
+    color: var(--green);
 }
 
 a {
@@ -278,7 +286,7 @@ nav div > ul li:hover .category {
     background-color: var(--light-teal);
 }
 
-/******************************** Sign In/UP *********************************/
+/******************************** Sign In/Up *********************************/
 
 .auth {
     display: flex;
