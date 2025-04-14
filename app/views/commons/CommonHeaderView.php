@@ -24,7 +24,7 @@
                     <?php endif; ?>
                 </a>
             </div>
-            
+
             <div class="dropdown">
                 <button class="dropbtn">
                     <span><i class="fa-solid fa-user"></i></span>

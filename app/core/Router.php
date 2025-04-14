@@ -3,8 +3,8 @@
 class Router {
     private $routes = [];
 
-    public function addRoute($url, $controller, $action) {
-        $this->routes[$url] = ['controller' => $controller, 'action' => $action];
+    public function addRoute($url, $controller, $action, $params = []) {
+        $this->routes[$url] = ['controller' => $controller, 'action' => $action, 'params' => $params];
     }
 
     public function dispatch($uri) {
@@ -35,7 +35,9 @@ class Router {
             $this->sendError(500, "Error: Method '$actionName' not found in controller '$controllerName'.");
         }
 
-        $controller->$actionName();
+        $params = $this->routes[$uri]['params'];
+
+        $controller->$actionName(...$params);
     }
 
     private function sendError($code, $message) {

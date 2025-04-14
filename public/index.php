@@ -36,5 +36,13 @@ $router->addRoute("/category/drama", 'CategoryController', 'drama');
 $router->addRoute("/cart/add", 'CartController', 'add');
 $router->addRoute("/cart/remove", 'CartController', 'remove');
 
+require_once '../app/models/Vod.php';
+
+$vod = new Vod();
+
+foreach ($vod->getVodsId() as $vodId) {
+    $router->addRoute("/vod/$vodId", 'VodController', 'index', [$vodId]);
+}
+
 $parsedUrl = str_replace('/1PHPD', '', $_SERVER['REQUEST_URI']);
 $router->dispatch($parsedUrl);

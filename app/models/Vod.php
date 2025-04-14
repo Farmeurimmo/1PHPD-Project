@@ -42,16 +42,28 @@ class Vod {
 
     public function getVodData($id) {
         $sql = "
-        SELECT vods.id, vods.image, vods.title, vods.short_plot, vods.director_id, vods.price, vods.release_date,
-            directors.first_name, directors.last_name,
-            GROUP_CONCAT(DISTINCT categories.name ORDER BY categories.name SEPARATOR ', ') AS categories_array
+        SELECT 
+            vods.id,
+            vods.image,
+            vods.title,
+            vods.short_plot,
+            vods.long_plot,
+            vods.director_id,
+            vods.price,
+            vods.release_date,
+            directors.first_name AS director_first_name,
+            directors.last_name AS director_last_name,
+            GROUP_CONCAT(DISTINCT categories.name ORDER BY categories.name SEPARATOR ', ') AS categories_array,
+            GROUP_CONCAT(DISTINCT CONCAT(actors.first_name, ' ', actors.last_name) ORDER BY actors.last_name SEPARATOR ', ') AS actors_array
         FROM vods
         INNER JOIN vod_categories ON vod_categories.vod_id = vods.id
         INNER JOIN categories ON vod_categories.category_id = categories.id
         INNER JOIN directors ON vods.director_id = directors.id
+        LEFT JOIN actor_films ON actor_films.vod_id = vods.id
+        LEFT JOIN actors ON actor_films.actor_id = actors.id
         WHERE vods.id = :id
         GROUP BY vods.id
-    ";
+        ";
 
         $query = $this->db->prepare($sql);
         $query->bindParam(':id', $id, PDO::PARAM_INT);
@@ -66,6 +78,13 @@ class Vod {
         $query->bindParam(':vodId', $vodId, PDO::PARAM_INT);
         $query->execute();
         return $query->fetchColumn();
+    }
+
+    public function getVodsId() {
+        $sql = "SELECT id FROM vods";
+        $query = $this->db->prepare($sql);
+        $query->execute();
+        return $query->fetchAll(PDO::FETCH_COLUMN);
     }
 
 }
