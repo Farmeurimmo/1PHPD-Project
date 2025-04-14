@@ -44,7 +44,7 @@ main {
 .grid {
     justify-content: center;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 0.2fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 0.2fr));
     gap: 20px;
 }
 
