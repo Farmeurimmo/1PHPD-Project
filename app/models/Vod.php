@@ -60,4 +60,12 @@ class Vod {
         return $query->fetch(PDO::FETCH_ASSOC);
     }
 
+    public function getFilmTitle($vodId) {
+        $sql = "SELECT title FROM vods WHERE id = :vodId";
+        $query = $this->db->prepare($sql);
+        $query->bindParam(':vodId', $vodId, PDO::PARAM_INT);
+        $query->execute();
+        return $query->fetchColumn();
+    }
+
 }
