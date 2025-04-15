@@ -1,5 +1,9 @@
 # 1PHPD Project
 
+By:
+- PETIT Flora
+- MASSONNAT Robin
+
 ## Requirements
 
 - PHP 8.4
