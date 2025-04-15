@@ -21,6 +21,12 @@ class CategoryController extends BaseController {
         $categories = $this->getModel("vod")->getCategories();
         $directors = $this->getModel("vod")->getDirectors();
 
+        if (!empty($categories)) {
+            $categories = array_filter($categories, function($cat) use ($category) {
+                return strtolower($cat["name"]) !== strtolower($category);
+            });
+        }
+
         $this->renderView("CategoryView", [
             "title" => "Category: " . $category,
             "vods" => $vods,
