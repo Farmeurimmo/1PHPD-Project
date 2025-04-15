@@ -76,16 +76,14 @@ CREATE TABLE actors
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
-    last_name  VARCHAR(100) NOT NULL
-    ADD UNIQUE (first_name, last_name);
+    last_name  VARCHAR(100) NOT NULL ADD UNIQUE (first_name, last_name);
 );
 
 CREATE TABLE directors
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
-    last_name  VARCHAR(100) NOT NULL
-    ADD UNIQUE (first_name, last_name);
+    last_name  VARCHAR(100) NOT NULL ADD UNIQUE (first_name, last_name);
 );
 
 CREATE TABLE vods

@@ -36,6 +36,7 @@ $router->addRoute("/category/drama", 'CategoryController', 'drama');
 
 $router->addRoute("/cart/add", 'CartController', 'add');
 $router->addRoute("/cart/remove", 'CartController', 'remove');
+$router->addRoute("/cart/removeall", 'CartController', 'removeAll');
 
 $router->addRoute("/vod/*", 'VodController', 'index');
 

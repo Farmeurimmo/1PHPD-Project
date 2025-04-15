@@ -1,8 +1,13 @@
 <?php
 require_once "BaseController.php";
-require_once __DIR__ . "/../models/Vod.php";
+require_once __DIR__ . "/../models/User.php";
 
 class CartController extends BaseController {
+    private $userModel;
+
+    public function __construct() {
+        $this->userModel = new User();
+    }
 
     function add() {
         $this->ensurePostAndAuth();
@@ -26,6 +31,10 @@ class CartController extends BaseController {
         if (!isset($_SESSION["username"])) {
             exit(401);
         }
+
+        if (!$this->userModel->isLoggedIn()) {
+            exit(403);
+        }
     }
 
     private function loadCart() {
@@ -48,5 +57,11 @@ class CartController extends BaseController {
             unset($cart[$product_id]);
             $this->saveCart($cart);
         }
+    }
+
+    function removeall() {
+        $this->ensurePostAndAuth();
+
+        setcookie("cart", "", time() - 3600, "/1PHPD");
     }
 }
