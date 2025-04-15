@@ -1,32 +1,38 @@
 <?php if (!empty($vod)) : ?>
-    <div>
-        <h1><?php echo $vod["title"] ?></h1>
-        <h2><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></h2>
-        <p><?php echo $vod["long_plot"] ?></p>
-
-        <h2>Actors</h2>
-        <ul style="list-style-type:none">
-            <?php if (isset($vod["actors_array"])) : ?>
-                <?php foreach (explode(", ", $vod["actors_array"]) as $actor) { ?>
-                    <li><?php echo $actor ?></li>
-                <?php }
+    <h1><?php echo $vod["title"] ?></h1>
+    <h2>Informations</h2>
+    <div class="vod-infos">
+        <div class="image-container">
+            <img src="<?php echo $vod["image"] ?>" alt="<?php echo $vod["title"] ?>">
+        </div>
+        <div class="info-container">
+            <h3>Director: </h3>
+            <p><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></p>
+            <h3>Actors: </h3>
+            <p><?php if (isset($vod["actors_array"])) : ?>
+                <?php foreach (explode(", ", $vod["actors_array"]) as $actor) {
+                    echo "$actor, ";
+                }
                 ?>
             <?php else : ?>
-                <li>No actors found</li>
-            <?php endif; ?>
-        </ul>
+                <p>No actors found</p>
+            <?php endif; ?></p>
+            <h3>Release date: </h3>
+            <p><?php echo $vod["release_date"] ?></p>
 
-        <p><?php echo $vod["price"] ?></p>
+            <?php
+                include_once "commons/CommonVideoView.php";
+                priceAndBuyButton($vod);
+            ?>
 
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-            <div style="display: flex; width: 50%;">
-                <img style="width: 100%;" src="<?php echo $vod["image"] ?>" alt="<?php echo $vod["title"] ?>">
-            </div>
-            <div style="display: flex; width: 50%;">
-                <iframe style="width: 100%;" src="<?php echo $vod["trailer"] ?>" frameborder="0"
-                        allowfullscreen=""></iframe>
-            </div>
+            <h3>Long plot</h3>
+            <p><?php echo $vod["long_plot"] ?></p>
         </div>
+    </div>
+    <h2>Trailer</h2>
+    <div class="trailer-container">
+        <iframe src="<?php echo $vod["trailer"] ?>" frameborder="0"
+                allowfullscreen=""></iframe>
     </div>
 <?php else : ?>
     <div>
