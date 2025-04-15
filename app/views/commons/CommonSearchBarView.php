@@ -1,6 +1,7 @@
 <?php function searchBar($categories, $directors, $currentCategory = null) { ?>
     <div class="search-bar">
-        <form method="get" action="/1PHPD/">
+        <form method="get"
+              action="/1PHPD/<?php if (isset($currentCategory)) echo "category/" . strtolower(htmlspecialchars($currentCategory)) ?>">
             <input type="text" name="search" placeholder="Search..."
                    value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
             <select name="category">
