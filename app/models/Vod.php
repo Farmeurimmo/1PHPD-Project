@@ -8,7 +8,7 @@ class Vod {
     }
 
     public function getVods($page = 1, $category = null, $search = null, $director = null) {
-        $limit = 10;
+        $limit = 20;
         $offset = ($page - 1) * $limit;
 
         $sql = "

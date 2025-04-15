@@ -10,11 +10,14 @@ class CategoryController extends BaseController {
             return;
         }
 
-        $category = ucfirst(strtolower($category));
-
         $search = $_GET["search"] ?? "";
         $page = $_GET["page"] ?? 1;
         $director = $_GET["director"] ?? "";
+        if (isset($_GET["category"])) {
+            $category = $_GET["category"];
+        }
+
+        $category = ucfirst(strtolower($category));
 
         $vods = $this->getModel("vod")->getVods($page, $category, $search, $director);
 
@@ -22,7 +25,7 @@ class CategoryController extends BaseController {
         $directors = $this->getModel("vod")->getDirectors();
 
         if (!empty($categories)) {
-            $categories = array_filter($categories, function($cat) use ($category) {
+            $categories = array_filter($categories, function ($cat) use ($category) {
                 return strtolower($cat["name"]) !== strtolower($category);
             });
         }

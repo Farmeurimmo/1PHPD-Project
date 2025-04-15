@@ -16,6 +16,9 @@
                         <?= htmlspecialchars($category['name']) ?>
                     </option>
                 <?php } ?>
+                <?php if ($currentCategory) { ?>
+                    <option value="">All Categories</option>
+                <?php } ?>
             </select>
             <select name="director">
                 <option value="">All Directors</option>
