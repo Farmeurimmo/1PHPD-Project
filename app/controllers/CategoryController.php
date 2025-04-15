@@ -4,8 +4,8 @@ require_once __DIR__ . "/../models/Vod.php";
 
 class CategoryController extends BaseController {
 
-    public function crime() {
-        $category = "Crime";
+    public function action() {
+        $category = "Action";
 
         $this->commonPart($category);
     }

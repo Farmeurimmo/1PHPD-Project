@@ -9,7 +9,7 @@
                 <span>Category</span>
             </button>
             <div class="dropdown-content">
-                <a href="/1PHPD/category/crime">Crime</a>
+                <a href="/1PHPD/category/action">Action</a>
                 <a href="/1PHPD/category/drama">Drama</a>
             </div>
         </div>
