@@ -5,35 +5,27 @@ require_once __DIR__ . "/../models/User.php";
 require_once __DIR__ . "/../models/Vod.php";
 
 class MyController extends BaseController {
-    private $userModel;
-    private $vodModel;
-
-    public function __construct() {
-        $this->userModel = new User();
-        $this->vodModel = new Vod();
-    }
-
     function myFilms() {
-        if (!$this->userModel->isLoggedIn()) {
+        if (!$this->getModel("user")->isLoggedIn()) {
             header("Location: /1PHPD/auth/");
             exit(403);
         }
 
         $userId = $_SESSION["userId"];
-        $films = $this->userModel->getUserFilms($userId);
+        $films = $this->getModel("user")->getUserFilms($userId);
 
         $this->renderView("MyFilmsView", ["title" => "My Films", "films" => $films]);
     }
 
     function myProfile() {
-        if (!$this->userModel->isLoggedIn()) {
+        if (!$this->getModel("user")->isLoggedIn()) {
             header("Location: /1PHPD/auth/");
             exit(403);
         }
 
         $userId = $_SESSION["userId"];
         try {
-            $user = $this->userModel->getUserById($userId);
+            $user = $this->getModel("user")->getUserById($userId);
         } catch (Exception $e) {
             header("Location: /1PHPD/auth/");
             exit(403);
@@ -43,7 +35,7 @@ class MyController extends BaseController {
     }
 
     function myCart() {
-        if (!$this->userModel->isLoggedIn()) {
+        if (!$this->getModel("user")->isLoggedIn()) {
             header("Location: /1PHPD/auth/");
             exit(403);
         }
@@ -53,7 +45,7 @@ class MyController extends BaseController {
         $vods = [];
         foreach ($cart as $vodId => $quantity) {
             try {
-                $vod = $this->vodModel->getVodData($vodId);
+                $vod = $this->getModel("vod")->getVodData($vodId);
                 if ($vod) {
                     $vods[] = $vod;
                 }
@@ -66,7 +58,7 @@ class MyController extends BaseController {
     }
 
     function myCartCheckout() {
-        if (!$this->userModel->isLoggedIn()) {
+        if (!$this->getModel("user")->isLoggedIn()) {
             header("Location: /1PHPD/auth/");
             exit(403);
         }
@@ -81,13 +73,13 @@ class MyController extends BaseController {
         $userId = $_SESSION["userId"];
 
         try {
-            $this->userModel->checkoutCart($userId, $cart);
+            $this->getModel("user")->checkoutCart($userId, $cart);
 
             setcookie("cart", json_encode([]), time() - 3600, "/1PHPD");
         } catch (Exception $e) {
             $errorIdFilm = $_SESSION["errorFilm"];
 
-            $film_title = $this->vodModel->getFilmTitle($errorIdFilm);
+            $film_title = $this->getModel("vod")->getFilmTitle($errorIdFilm);
 
             $_SESSION["errorMessage"] = $e->getMessage() . " (" . $film_title . ")";
         }
@@ -96,7 +88,7 @@ class MyController extends BaseController {
 
         foreach ($cart as $vodId => $quantity) {
             try {
-                $vod = $this->vodModel->getVodData($vodId);
+                $vod = $this->getModel("vod")->getVodData($vodId);
                 if ($vod) {
                     $brought[] = $vod;
                 }

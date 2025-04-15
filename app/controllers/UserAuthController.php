@@ -4,14 +4,8 @@ require_once "BaseController.php";
 require_once __DIR__ . "/../models/User.php";
 
 class UserAuthController extends BaseController {
-    private $userModel;
-
-    function __construct() {
-        $this->userModel = new User();
-    }
-
     function index() {
-        if ($this->userModel->isLoggedIn()) {
+        if ($this->getModel("user")->isLoggedIn()) {
             header("Location: /1PHPD/");
             exit(200);
         }
@@ -37,7 +31,7 @@ class UserAuthController extends BaseController {
         $password = password_hash($password, PASSWORD_DEFAULT);
 
         try {
-            $this->userModel->register($email, $username, $password);
+            $this->getModel("user")->register($email, $username, $password);
             header("Location: /1PHPD/");
         } catch (Exception $e) {
             if ($e->getCode() == 23000) {
@@ -96,7 +90,7 @@ class UserAuthController extends BaseController {
         $this->validatePassword($password);
 
         try {
-            $this->userModel->login($email, $password);
+            $this->getModel("user")->login($email, $password);
             header("Location: /1PHPD/");
         } catch (Exception $e) {
             $this->fail($e->getMessage());
@@ -104,12 +98,12 @@ class UserAuthController extends BaseController {
     }
 
     function logout() {
-        $this->userModel->logout();
+        $this->getModel("user")->logout();
         header("Location: /1PHPD/auth/");
     }
 
     function password() {
-        if (!$this->userModel->isLoggedIn()) {
+        if (!$this->getModel("user")->isLoggedIn()) {
             $this->redirectToProfile(true);
         }
 
@@ -130,13 +124,13 @@ class UserAuthController extends BaseController {
                 $this->fail("The new password must be different from the old one.", true);
             }
 
-            $this->userModel->checkPassword($oldPassword, null, $_SESSION["userId"]);
+            $this->getModel("user")->checkPassword($oldPassword, null, $_SESSION["userId"]);
 
-            $this->userModel->changePassword($_SESSION["userId"], $newPassword);
+            $this->getModel("user")->changePassword($_SESSION["userId"], $newPassword);
 
             $shouldDisconnectAll = isset($_POST["disconnect_all"]) && $_POST["disconnect_all"] == "on";
             if ($shouldDisconnectAll) {
-                $this->userModel->logoutEverything($_SESSION["userId"]);
+                $this->getModel("user")->logoutEverything($_SESSION["userId"]);
             } else {
                 $_SESSION["successMessage"] = "Password changed successfully.";
             }

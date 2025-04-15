@@ -1,14 +1,7 @@
 <?php
 require_once "BaseController.php";
-require_once __DIR__ . "/../models/User.php";
 
 class CartController extends BaseController {
-    private $userModel;
-
-    public function __construct() {
-        $this->userModel = new User();
-    }
-
     function add() {
         $this->ensurePostAndAuth();
 
@@ -28,12 +21,8 @@ class CartController extends BaseController {
             exit(400);
         }
 
-        if (!isset($_SESSION["username"])) {
+        if (!isset($_SESSION["username"]) || !$this->getModel("user")->isLoggedIn()) {
             exit(401);
-        }
-
-        if (!$this->userModel->isLoggedIn()) {
-            exit(403);
         }
     }
 
