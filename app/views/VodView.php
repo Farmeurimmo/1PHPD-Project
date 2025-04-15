@@ -7,7 +7,7 @@
         </div>
         <div class="info-container">
             <h3>Director: </h3>
-            <p><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></p>
+            <a href="/1PHPD/director/<?php echo $vod["director_id"]; ?>"><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></a>
             <h3>Actors: </h3>
             <p><?php if (isset($vod["actors_array"])) : ?>
                 <?php foreach (explode(", ", $vod["actors_array"]) as $actor) {
@@ -28,11 +28,6 @@
             <h3>Long plot</h3>
             <p><?php echo $vod["long_plot"] ?></p>
         </div>
-    </div>
-    <h2>Trailer</h2>
-    <div class="trailer-container">
-        <iframe src="<?php echo $vod["trailer"] ?>" frameborder="0"
-                allowfullscreen=""></iframe>
     </div>
 <?php else : ?>
     <div>
