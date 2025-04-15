@@ -22,7 +22,7 @@ Two options are available for installation:
 
 ### Import the .sql file for the database
 
-On your phpMyAdmin, in the desired database, import the `1PHPD.sql` file located in the `sql` directory.
+On your phpMyAdmin, in the desired database, import the `1phpd.sql` file located in the `sql` directory.
 
 ### Configuration (for database connection)
 
