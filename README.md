@@ -1,6 +1,7 @@
 # 1PHPD Project
 
 By:
+
 - PETIT Flora
 - MASSONNAT Robin
 
@@ -59,24 +60,28 @@ After some research about the best practices for php development, we found that 
 complex way to structure a PHP application.
 
 Source:
+
 - https://www.univ-orleans.fr/iut-orleans/informatique/intra/tuto/php/php-mvc.html (A little bit outdated but still relevant)
 - https://dyma.fr/blog/introduction-au-mvc-avec-php/ (pretty good explanation with recent examples)
 
 ### Code architecture
 
 #### `controllers`
+
 Handle the app’s logic and send data to the views. (like a bridge)
 
 Note: all controllers extend the `BaseController` class, which provides common functionality like getting a model instance
 and rendering views.
 
 #### `models`
+
 Work with the database. They define and manage the data.
 
 #### `views`
+
 Display data to the user. These are HTML files with embedded PHP.
 
-Note: There is a layout file to structure the rendered views. By default, the layout file add the header, the footer, 
+Note: There is a layout file to structure the rendered views. By default, the layout file add the header, the footer,
 the CSS, JS file for the icons and the main html structure in which the view will be rendered.
 
 Note 2: There are some reusable components that are imported in the views like `CommonSearchBarView.php` to prevent code
@@ -102,10 +107,11 @@ the function in the appropriate controller.
 
 SQL dump export of the database.
 
-
 ---
 
 ## Database
+
+The database uses 9 tables as describe below:
 
 - **vods** (id, title, image, plot, director_id, price, release_date)
 
@@ -119,11 +125,75 @@ SQL dump export of the database.
 
 - **categories** (id, name)
 
-- **users** (id, username, password_hashed, email, role, created_at, updated_at)
+- **users** (id, username, password_hashed, email, created_at, updated_at)
 
 - **films_purchased** (id, user_id, vod_id, purchase_date)
 
 - **sessions** (id, user_id, token, expiration_date)
+
+### `users`
+
+- `id`: unique identifier for each user
+- `username`: users' username
+- `password_hashed`: encrypted users' password
+- `email`: users' email adress
+- `created_at`: date and time of the account creation
+- `updated_at`: date and time of the last account modification
+
+### `categories`
+
+- `id`: unique identifier for each category
+- `name`: name of the category
+
+### `actors`
+
+- `id`: unique identifier for each actor
+- `first_name`: actor's first name
+- `last_name`: actor's last name
+
+### `directors`
+
+- `id`: unique identifier for each director
+- `first_name`: director's first name
+- `last_name`: director's last name
+
+### `vods`
+
+- `id`: unique identifier for each movie
+- `title`: title of the movie
+- `image`: link the the poster of the movie
+- `plot`: plot of the movie
+- `director_id`: unique identifier of the director from the `directors` table
+- `price`: price of the movie
+- `release_date`: release date of the movie
+
+### `vod_categories`
+
+- `id`: unique identifier for each movie associated with its category
+- `vod_id`: unique identifier of the movie from the `vods` table
+- `category_id`: unique identifier of the category from the `categories` table
+
+### `actor_films`
+
+- `id`: unique identifier for each actor associated with its movie
+- `actor_id`: unique identifier of the actor from the `actors` table
+- `vod_id`: unique identifier of the movie from the `vods` table
+
+### `films_purchased`
+
+- `id`: unique identifier for each purchase
+- `user_id`: unique identifier of the user from the `users` table
+- `vod_id`: unique identifier of the movie from the `vods` table
+- `purchase_date`: date of the purchase
+
+### `sessions`
+
+- `id`: unique identifier for each sessions
+- `user_id`: unique identifier of the user from the `users` table
+- `token`: session token to stay connected
+- `expiration_date`: expiration date for the token
+
+The tables were created with the folowing SQL code:
 
 ```sql
 CREATE TABLE users
