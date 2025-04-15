@@ -7,16 +7,19 @@
         </div>
         <div class="info-container">
             <h3>Director: </h3>
-            <a href="/1PHPD/director/<?php echo $vod["director_id"]; ?>"><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></a>
+            <a style="text-decoration: underline;" href="/1PHPD/director/<?php echo $vod["director_id"]; ?>"><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></a>
             <h3>Actors: </h3>
-            <p><?php if (isset($vod["actors_array"])) : ?>
-                <?php foreach (explode(", ", $vod["actors_array"]) as $actor) {
-                    echo "$actor, ";
-                }
-                ?>
+            <?php if (isset($vod["actors_array"])) : ?>
+                <p>
+                    <?php
+                    foreach (explode(", ", $vod["actors_array"]) as $actor) {
+                        echo "$actor, ";
+                    }
+                    ?>
+                </p>
             <?php else : ?>
                 <p>No actors found</p>
-            <?php endif; ?></p>
+            <?php endif; ?>
             <h3>Release date: </h3>
             <p><?php echo $vod["release_date"] ?></p>
 
