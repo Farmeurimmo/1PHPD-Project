@@ -10,7 +10,11 @@ class UserAuthController extends BaseController {
             exit(200);
         }
 
-        $this->renderView("UserAuthView", ["title" => "Sign In or Sign Up"]);
+        $this->renderView("UserAuthView", [
+            "title" => "Sign In or Sign Up",
+            "description" => "Access your account or create a new one to enjoy our video on demand platform.",
+            "keywords" => "login, sign in, sign up, user account, video on demand"
+        ]);
     }
 
     function register() {

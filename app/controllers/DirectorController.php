@@ -14,7 +14,13 @@ class DirectorController extends BaseController {
 
         $director = $this->getModel("vod")->getDirectorFilms($directorId);
         $directorName = $director[0]["first_name"] . " " . $director[0]["last_name"];
-        $this->renderView("DirectorsView", ["title" => $directorName, "director" => $director]);
+
+        $this->renderView("DirectorsView", [
+            "title" => $directorName,
+            "director" => $director,
+            "description" => "Discover movies directed by " . $directorName . ".",
+            "keywords" => $directorName . ", movies, directors, video on demand"
+        ]);
     }
 }
 

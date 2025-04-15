@@ -20,7 +20,15 @@ class CategoryController extends BaseController {
         $categories = $this->getModel("vod")->getCategories();
         $directors = $this->getModel("vod")->getDirectors();
 
-        $this->renderView("CategoryView", ["title" => "Category: " . $category, "vods" => $vods, "category" => $category, "categories" => $categories, "directors" => $directors]);
+        $this->renderView("CategoryView", [
+            "title" => "Category: " . $category,
+            "vods" => $vods,
+            "category" => $category,
+            "categories" => $categories,
+            "directors" => $directors,
+            "description" => "Browse the best " . $category . " movies available on our platform.",
+            "keywords" => $category . ", movies, video on demand, directors, categories"
+        ]);
     }
 
     public function drama() {

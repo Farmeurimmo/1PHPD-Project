@@ -15,6 +15,13 @@ class HomeController extends BaseController {
         $categories = $this->getModel("vod")->getCategories();
         $directors = $this->getModel("vod")->getDirectors();
 
-        $this->renderView("HomeView", ["title" => "Home", "vods" => $vods, "categories" => $categories, "directors" => $directors]);
+        $this->renderView("HomeView", [
+            "title" => "Home",
+            "vods" => $vods,
+            "categories" => $categories,
+            "directors" => $directors,
+            "description" => "Explore our vast collection of videos on demand, categorized for your convenience.",
+            "keywords" => "home, vod, video on demand, movies, directors, categories"
+        ]);
     }
 }
