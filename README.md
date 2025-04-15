@@ -47,31 +47,33 @@ The user should have all privileges on the database to prevent any issues.
 
 ## Project Structure
 
-The .htaccess file is used to redirect all requests to the `public/index.php` file, which is the entry point of the
-application. (It also prevents direct access to critical files like the .env file, the config file, etc.)
-
-The Router class uses the routes given in the `public/index.php` file to determine which controller and method to call based on the URL.
-
 We chose the **MVC (Model-View-Controller)** architecture for this project.
 
 ### Why MVC?
 
-After some research about the best practices for php development, we found that the MVC architecture is a good and not too
-complex way to structure a PHP application.
+After some research about the best practices for php development, we found that the MVC architecture is a good and not
+too complex way to structure a PHP application.
 
 Source:
 
-- https://www.univ-orleans.fr/iut-orleans/informatique/intra/tuto/php/php-mvc.html (A little bit outdated but still relevant)
+- https://www.univ-orleans.fr/iut-orleans/informatique/intra/tuto/php/php-mvc.html (A little bit outdated but still
+  relevant)
 - https://dyma.fr/blog/introduction-au-mvc-avec-php/ (pretty good explanation with recent examples)
 
 ### Code architecture
+
+The .htaccess file is used to redirect all requests to the `public/index.php` file, which is the entry point of the
+application. (It also prevents direct access to critical files like the .env file, the config file, etc.)
+
+The Router class uses the routes given in the `public/index.php` file to determine which controller and method to call
+based on the URL.
 
 #### `controllers`
 
 Handle the app’s logic and send data to the views. (like a bridge)
 
-Note: all controllers extend the `BaseController` class, which provides common functionality like getting a model instance
-and rendering views.
+Note: all controllers extend the `BaseController` class, which provides common functionality like getting a model
+instance and rendering views.
 
 #### `models`
 
@@ -100,12 +102,36 @@ There are also the CSS and JS files for the application in the subfolder `assets
 
 #### `core`
 
-Contains the Router class that handles the routing of the application. Based on the routes defined, it will trigger 
+Contains the Router class that handles the routing of the application. Based on the routes defined, it will trigger
 the function in the appropriate controller.
 
 #### `sql`
 
 SQL dump export of the database.
+
+### Security
+
+- **Password hashing**: Passwords are hashed with `password_hash` before being stored.
+- **Session management**: User sessions use tokens generated with `bin2hex(openssl_random_pseudo_bytes(32))`, then
+  hashed and stored with an expiry date.
+- **Input validation (XSS)**: Inputs are sanitized with `htmlspecialchars` and `filter_var`.
+- **Prepared statements**: All SQL queries use prepared statements to prevent injection.
+- **Authentication**: Each user-related requests require authentication.
+- **File protection**: `.htaccess` blocks access to sensitive files like `DatabaseConfig` implicitly by redirecting all
+  requests to
+  `public/index.php`.
+
+### Styling
+
+- **Responsive on mobile and desktop**
+- **Use fontawesome for icons**
+
+### Possible improvements
+
+- **Checkout system**: Currently you don't have to pay to buy a film.
+- **User roles**: Currently, all users are treated the same. We could add a role system to differentiate between
+  admins and regular users. (With this we could implement comments, ratings, admin management, etc.)
+- **Film recommendations**: recommendations based on the user activity and preferences.
 
 ---
 

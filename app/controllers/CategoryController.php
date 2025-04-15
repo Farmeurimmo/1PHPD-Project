@@ -4,13 +4,14 @@ require_once __DIR__ . "/../models/Vod.php";
 
 class CategoryController extends BaseController {
 
-    public function action() {
-        $category = "Action";
+    function index($category = null) {
+        if ($category == null) {
+            header("Location: /1PHPD");
+            return;
+        }
 
-        $this->commonPart($category);
-    }
+        $category = ucfirst(strtolower($category));
 
-    function commonPart($category) {
         $search = $_GET["search"] ?? "";
         $page = $_GET["page"] ?? 1;
         $director = $_GET["director"] ?? "";
@@ -19,6 +20,12 @@ class CategoryController extends BaseController {
 
         $categories = $this->getModel("vod")->getCategories();
         $directors = $this->getModel("vod")->getDirectors();
+
+        if (!empty($categories)) {
+            $categories = array_filter($categories, function($cat) use ($category) {
+                return strtolower($cat["name"]) !== strtolower($category);
+            });
+        }
 
         $this->renderView("CategoryView", [
             "title" => "Category: " . $category,
@@ -29,11 +36,5 @@ class CategoryController extends BaseController {
             "description" => "Browse the best " . $category . " movies available on our platform.",
             "keywords" => $category . ", movies, video on demand, directors, categories"
         ]);
-    }
-
-    public function drama() {
-        $category = "Drama";
-
-        $this->commonPart($category);
     }
 }
