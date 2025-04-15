@@ -1,5 +1,10 @@
 # 1PHPD Project
 
+1. [Requirements](#requirements)
+2. [Installation](#installation)
+3. [Project Structure](#project-structure)
+4. [Database](#database)
+
 By:
 
 - PETIT Flora
