@@ -31,7 +31,8 @@ $router->addRoute("/my/films", 'MyController', 'myFilms');
 $router->addRoute("/my/cart", 'MyController', 'myCart');
 $router->addRoute("/my/cart/checkout", 'MyController', 'myCartCheckout');
 
-$router->addRoute("/category/*", 'CategoryController', 'index');
+$router->addRoute("/category/action", 'CategoryController', 'action');
+$router->addRoute("/category/drama", 'CategoryController', 'drama');
 
 $router->addRoute("/cart/add", 'CartController', 'add');
 $router->addRoute("/cart/remove", 'CartController', 'remove');
