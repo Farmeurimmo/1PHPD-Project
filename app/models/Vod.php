@@ -22,7 +22,13 @@ class Vod {
         INNER JOIN directors ON vods.director_id = directors.id
         WHERE (:search IS NULL OR vods.title LIKE :search)
         AND (:category IS NULL OR categories.name LIKE :category)
-        AND (:director IS NULL OR directors.first_name LIKE :director OR directors.last_name LIKE :director)
+        AND (
+            :director = '' OR 
+            directors.first_name LIKE :director OR 
+            directors.last_name LIKE :director OR 
+            CONCAT(directors.first_name, ' ', directors.last_name) LIKE :director OR 
+            CONCAT(directors.last_name, ' ', directors.first_name) LIKE :director
+        )
         GROUP BY vods.id
         LIMIT :limit OFFSET :offset
     ";
@@ -81,5 +87,23 @@ class Vod {
         $query->bindParam(':vodId', $vodId, PDO::PARAM_INT);
         $query->execute();
         return $query->fetchColumn();
+    }
+
+    public function getDirectors() {
+        $sql = "SELECT DISTINCT first_name, last_name, CONCAT(first_name, ' ', last_name) AS full_name FROM directors";
+
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getCategories() {
+        $sql = "SELECT DISTINCT name FROM categories";
+
+        $query = $this->db->prepare($sql);
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
     }
 }
