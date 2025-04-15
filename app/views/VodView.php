@@ -5,7 +5,7 @@
 
     <h2>Actors</h2>
     <ul style="list-style-type:none">
-        <?php if (isset($vod["actors"])) : ?>
+        <?php if (isset($vod["actors_array"])) : ?>
             <?php foreach (explode(", ", $vod["actors_array"]) as $actor) { ?>
                 <li><?php echo $actor ?></li>
             <?php }
