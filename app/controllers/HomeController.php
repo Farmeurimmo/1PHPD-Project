@@ -10,13 +10,16 @@ class HomeController extends BaseController {
     }
 
     public function index() {
-        $search = htmlspecialchars($_GET["search"] ?? null);
-        $category = htmlspecialchars($_GET["category"] ?? null);
-        $page = htmlspecialchars($_GET["page"] ?? 1);
-        $director = htmlspecialchars($_GET["director"] ?? null);
+        $search = $_GET["search"] ?? null;
+        $category = $_GET["category"] ?? null;
+        $page = $_GET["page"] ?? 1;
+        $director = $_GET["director"] ?? null;
 
         $vods = $this->vodModel->getVods($page, $category, $search, $director);
 
-        $this->renderView("HomeView", ["title" => "Home", "vods" => $vods]);
+        $categories = $this->vodModel->getCategories();
+        $directors = $this->vodModel->getDirectors();
+
+        $this->renderView("HomeView", ["title" => "Home", "vods" => $vods, "categories" => $categories, "directors" => $directors]);
     }
 }
