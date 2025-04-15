@@ -30,4 +30,6 @@
         </div>
     <?php endif; ?>
 
+    <a href="/1PHPD/my/films">Back to My Films</a>
+
 <?php endif; ?>
