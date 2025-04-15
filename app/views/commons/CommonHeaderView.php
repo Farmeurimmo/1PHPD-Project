@@ -1,16 +1,33 @@
 <nav>
-    <div id="navigation">
-        <ul>
-            <li><a href="/1PHPD/">Home</a></li>
-            <li>
-                <span>Category</span>
-                <ul class="category">
-                    <li><a href="/1PHPD/category/crime">Crime</a></li>
-                    <li><a href="/1PHPD/category/drama">Drama</a></li>
-                </ul>
-            </li>
-        </ul>
+    <div class="hamburger">
+        <span>☰</span>
     </div>
+    <div class="nav" id="navigation">
+        <a href="/1PHPD/">Home</a>
+        <div class="dropdown">
+            <button class="dropbtn">
+                <span>Category</span>
+            </button>
+            <div class="dropdown-content">
+                <a href="/1PHPD/category/crime">Crime</a>
+                <a href="/1PHPD/category/drama">Drama</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navigation = document.querySelector('.nav');
+
+        hamburger.addEventListener('click', () => {
+            if (navigation.id === 'navigation') {
+                navigation.id = 'navigation-open';
+            } else {
+                navigation.id = 'navigation';
+            }
+        });
+    </script>
+
     <?php if (isset($_SESSION["username"])) : ?>
         <div class="users" style="display: flex;">
             <div class="cartdiv">

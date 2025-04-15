@@ -132,6 +132,7 @@ nav {
     height: 60px;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0px;
     top: 0;
     z-index: 2;
@@ -141,8 +142,8 @@ nav {
 
 #navigation, .users {
     gap: 30px;
-    width: 50%;
     display: flex;
+    align-items: center;
     cursor: pointer;
 }
 
@@ -151,10 +152,14 @@ nav {
     justify-content: flex-start;
 }
 
+#navigation a:hover {
+    font-weight: bold;
+}
+
 .users {
+    position: relative;
     padding-right: 20px;
     justify-content: flex-end;
-    align-items: center;
 }
 
 nav ul {
@@ -191,55 +196,6 @@ nav div > ul li:hover .category {
     padding: 10px;
 }
 
-.hamburger {
-    display: none;
-    flex-direction: column;
-    width: 50%;
-    height: 20px;
-    cursor: pointer;
-    margin-right: auto;
-    margin-left: auto;
-    padding-left: 20px;
-    z-index: 3;
-}
-
-.hamburger span {
-    color: inherit;
-}
-
-@media screen and (max-width: 500px) {
-    .hamburger {
-        display: flex;
-        justify-content: flex-start;
-    }
-
-    #navigation {
-        display: none;
-        flex-direction: column;
-        width: 100%;
-    }
-
-    #navigation span {
-        margin: 0;
-    }
-
-    nav #navigation {
-        position: absolute;
-        top: 60px;
-        right: 0;
-        background-color: var(--off-black);
-        width: 100%;
-        flex-direction: column;
-        display: none;
-        padding: 10px 0;
-        text-align: center;
-    }
-
-    nav #navigation span {
-        margin: 10px 0;
-    }
-}
-
 .dropbtn {
     font-family: 'LexieReadable', sans-serif;
     background-color: inherit;
@@ -257,14 +213,19 @@ nav div > ul li:hover .category {
 }
 
 .dropdown-content {
+    width: 100%;
     display: none;
     position: absolute;
-    background-color: var(--off-white);
+    background-color: var(--blue);
     font-size: 0.78em;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    box-shadow: 0 2px 5px var(--blue-shadow);
     transition: display 0.5s ease;
     z-index: 1;
+}
+
+.users .dropdown-content {
+    background-color: var(--off-white);
 }
 
 .dropdown-content a {
@@ -274,16 +235,59 @@ nav div > ul li:hover .category {
     transition: background-color 0.5s ease;
 }
 
-.dropdown-content a:hover {
+.users .dropdown-content a:hover {
     background-color: #ddd;
 }
 
-.dropdown:hover .dropdown-content {
+.dropdown:hover .dropdown-content,
+.dropdown:focus-within .dropdown-content {
     display: block;
 }
 
-.dropdown:hover .dropbtn {
+.users .dropdown:hover .dropbtn,
+.users .dropdown:focus-within .dropbtn {
     background-color: var(--light-teal);
+}
+
+.hamburger {
+    display: none;
+    height: 20px;
+    cursor: pointer;
+    margin-left: 20px;
+    padding: 5px;
+    z-index: 3;
+}
+
+.hamburger span {
+    color: inherit;
+}
+
+@media screen and (max-width: 500px) {
+    .hamburger {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+
+    #navigation {
+        display: none;
+    }
+
+    #navigation-open {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        width: 100vw;
+        height: 100vh;
+        margin: 0;
+        padding: 0;
+        gap: 20px;
+        background-color: var(--blue);
+    }
 }
 
 /******************************** Sign In/Up *********************************/

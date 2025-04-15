@@ -6,7 +6,14 @@ $_total = 0;
 ?>
 <div class="cart-page">
     <section id="items">
-        <h2>My Items</h2>
+        <div class="delete-all">
+            <h2>My Items</h2>
+            <form method="post" class="cart-form" action="/1PHPD/cart/remove">
+                <button type="submit" class="add-to-cart-button">
+                    <i class="fa-solid fa-trash"></i> Delete All
+                </button>
+            </form>
+        </div>
         <div class="cart-tab">
             <?php if (empty($cart)): ?>
                 <p>Your cart is empty.</p>
