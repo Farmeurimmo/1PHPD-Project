@@ -91,7 +91,6 @@ CREATE TABLE vods
     id           INT PRIMARY KEY AUTO_INCREMENT,
     title        VARCHAR(255)   NOT NULL,
     image        VARCHAR(512)   NOT NULL,
-    trailer      VARCHAR(512)   NOT NULL,
     short_plot   TEXT,
     long_plot    TEXT,
     director_id  INT,

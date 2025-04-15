@@ -18,14 +18,8 @@
 
         <p><?php echo $vod["price"] ?></p>
 
-        <div style="display: flex; flex-wrap: wrap; justify-content: space-around;">
-            <div style="display: flex; width: 50%;">
-                <img style="width: 100%;" src="<?php echo $vod["image"] ?>" alt="<?php echo $vod["title"] ?>">
-            </div>
-            <div style="display: flex; width: 50%;">
-                <iframe style="width: 100%;" src="<?php echo $vod["trailer"] ?>" frameborder="0"
-                        allowfullscreen=""></iframe>
-            </div>
+        <div style="display: flex; flex-wrap: wrap; justify-content: space-around; max-width: 400px">
+            <img style="width: 100%;" src="<?php echo $vod["image"] ?>" alt="<?php echo $vod["title"] ?>">
         </div>
     </div>
 <?php else : ?>
