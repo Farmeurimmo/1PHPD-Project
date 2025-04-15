@@ -22,7 +22,10 @@ class CategoryController extends BaseController {
 
         $vods = $this->vodModel->getVods($page, $category, $search, $director);
 
-        $this->renderView("CategoryView", ["title" => "Category: " . $category, "vods" => $vods, "category" => $category]);
+        $categories = $this->vodModel->getCategories();
+        $directors = $this->vodModel->getDirectors();
+
+        $this->renderView("CategoryView", ["title" => "Category: " . $category, "vods" => $vods, "category" => $category, "categories" => $categories, "directors" => $directors]);
     }
 
     public function drama() {

@@ -1,10 +1,15 @@
-<?php function searchBar($categories, $directors) { ?>
+<?php function searchBar($categories, $directors, $currentCategory = null) { ?>
     <div class="search-bar">
         <form method="get" action="/1PHPD/">
             <input type="text" name="search" placeholder="Search..."
                    value="<?= htmlspecialchars($_GET['search'] ?? '') ?>">
             <select name="category">
-                <option value="">All Categories</option>
+                <?php if ($currentCategory) { ?>
+                    <option value="<?= htmlspecialchars($currentCategory) ?>"
+                            selected><?= htmlspecialchars($currentCategory) ?></option>
+                <?php } else { ?>
+                    <option value="">All Categories</option>
+                <?php } ?>
                 <?php foreach ($categories as $category) { ?>
                     <option value="<?= htmlspecialchars($category['name']) ?>" <?= (isset($_GET['category']) && $_GET['category'] == $category['name']) ? 'selected' : '' ?>>
                         <?= htmlspecialchars($category['name']) ?>

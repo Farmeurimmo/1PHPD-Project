@@ -2,6 +2,9 @@
 
 <h2>Movies from the <?php echo strtolower($category) ?> category</h2>
 
+<?php include_once "commons/CommonSearchBarView.php"; ?>
+<?php searchBar($categories, $directors, $category); ?>
+
 <div class="grid">
     <?php if (count($vods) > 0) : ?>
         <?php include_once "commons/CommonVideoView.php"; ?>
