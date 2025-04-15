@@ -31,7 +31,7 @@
                     <span><?php echo $_SESSION["username"]; ?></span>
                 </button>
                 <div class="dropdown-content">
-                    <a href="/1PHPD/my/profile">My Profil</a>
+                    <a href="/1PHPD/my/profile">My Profile</a>
                     <a href="/1PHPD/my/films">My Films</a>
                     <a href="/1PHPD/auth/logout">Sign Out</a>
                 </div>
