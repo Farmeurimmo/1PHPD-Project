@@ -7,7 +7,8 @@
         </div>
         <div class="info-container">
             <h3>Director: </h3>
-            <a style="text-decoration: underline;" href="/1PHPD/director/<?php echo $vod["director_id"]; ?>"><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></a>
+            <a style="text-decoration: underline;"
+               href="/1PHPD/director/<?php echo $vod["director_id"]; ?>"><?php echo $vod["director_first_name"] . " " . $vod["director_last_name"] ?></a>
             <h3>Actors: </h3>
             <?php if (isset($vod["actors_array"])) : ?>
                 <p>
@@ -24,11 +25,11 @@
             <p><?php echo $vod["release_date"] ?></p>
 
             <?php
-                include_once "commons/CommonVideoView.php";
-                priceAndBuyButton($vod);
+            include_once "commons/CommonVideoView.php";
+            priceAndBuyButton($vod);
             ?>
             <h3>Long plot</h3>
-            <p><?php echo $vod["long_plot"] ?></p>
+            <p><?php echo $vod["plot"] ?></p>
         </div>
     </div>
 <?php else : ?>

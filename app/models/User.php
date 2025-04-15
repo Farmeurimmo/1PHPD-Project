@@ -188,7 +188,7 @@ class User {
     }
 
     function getUserFilms($userId) {
-        $sql = "SELECT vods.id, vods.image, vods.title, vods.short_plot, vods.director_id, vods.price, vods.release_date,
+        $sql = "SELECT vods.id, vods.image, vods.title, vods.plot, vods.director_id, vods.price, vods.release_date,
             directors.first_name, directors.last_name,
             GROUP_CONCAT(DISTINCT categories.name ORDER BY categories.name SEPARATOR ', ') AS categories_array
         FROM films_purchased

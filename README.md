@@ -10,7 +10,8 @@
 
 Two options are available for installation:
 
-1. If using docker or something else, bind your web server to the parent dir of `1PHPD` directory and go to `localhost:8000/1PHPD` in your
+1. If using docker or something else, bind your web server to the parent dir of `1PHPD` directory and go to
+   `localhost:8000/1PHPD` in your
    browser.
 2. If using XAMPP or equivalent, place the `1PHPD` directory in the `htdocs` folder and go to `localhost/1PHPD` in your
    browser.
@@ -39,7 +40,7 @@ The user should have all privileges on the database to prevent any issues.
 
 ## Database
 
-- **vods** (id, title, image, short_plot, long_plot, director_id, price, release_date)
+- **vods** (id, title, image, plot, director_id, price, release_date)
 
 - **vod_categories** (id, vod_id, category_id)
 
@@ -93,9 +94,8 @@ CREATE TABLE vods
     id           INT PRIMARY KEY AUTO_INCREMENT,
     title        VARCHAR(255)   NOT NULL,
     image        VARCHAR(512)   NOT NULL,
-    short_plot   TEXT,
-    long_plot    TEXT,
-    director_id  INT,
+    plot         TEXT           NOT NULL,
+    director_id  INT            NOT NULL,
     price        DECIMAL(10, 2) NOT NULL,
     release_date DATE           NOT NULL,
     FOREIGN KEY (director_id) REFERENCES directors (id)
@@ -161,8 +161,8 @@ SET
 @director_id = (SELECT id FROM directors WHERE first_name = ? AND last_name = ?);
 
 INSERT
-IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
-VALUES (?, ?, ?, ?, @director_id, ?, ?);
+IGNORE INTO vods (title, image, plot, director_id, price, release_date)
+VALUES (?, ?, ?, @director_id, ?, ?);
 SET
 @vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight" AND director_id = @director_id);
 
@@ -193,11 +193,10 @@ INSERT
 IGNORE INTO directors (first_name, last_name) VALUES ('Frank', 'Darabont');
 
 INSERT
-IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
+IGNORE INTO vods (title, image, plot, director_id, price, release_date)
        VALUES ("The Shawshank Redemption", "https://m.media-amazon.com/images/M/MV5BMDAyY2FhYjctNDc5OS00MDNlLThiMGUtY2UxYWVkNGY2ZjljXkEyXkFqcGc@._V1_.jpg",
        "https://imdb-video.media-imdb.com/vi3877612057/1434659607842-pgv4ql-1616202333253.mp4?Expires=1743679714&Signature=uah7T~BcJiDQ68U3yejNfk0wI3RjetgjJWEClloaXSZ0keUHsLLOKENl1-~ceBBXoWCgbG5NWvHVFPxO7X3hpRxYKa41INVxj7nzYKuVk~Iihhpzeq-JlGko59Me-f7HcAe2tuFfCYDsg4Ne2UIX~lVM4Vblr2mV3vUcA4tBLe2gMWIICOs3bAw6n974jejIys~M~ep7TFlOeIEMHeJbL~2ydJatSxziRElDQNY-d5cMpXnDJBOr8vckqRtItYUyWVqti8jGO--wZmeXbP8~7rmx7BY0zUS90aklhd3b6JEpUewcVg5AdH4PPIOrYuQsP5slmlw~2ZAkCJ3RF65BjQ__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA",
        "A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
-       "LONG PLOT: A banker convicted of uxoricide forms a friendship over a quarter century with a hardened convict, while maintaining his innocence and trying to remain hopeful through simple compassion.",
        31,
        11.99,
        '1994-09-23');
@@ -234,11 +233,10 @@ INSERT
 IGNORE INTO directors (first_name, last_name) VALUES ('Francis', 'Ford Coppola');
 
 INSERT
-IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
+IGNORE INTO vods (title, image, plot, director_id, price, release_date)
        VALUES ("The Godfather", "https://m.media-amazon.com/images/M/MV5BNGEwYjgwOGQtYjg5ZS00Njc1LTk2ZGEtM2QwZWQ2NjdhZTE5XkEyXkFqcGc@._V1_.jpg",
        "https://imdb-video.media-imdb.com/vi1348706585/1434659607842-pgv4ql-1616202346191.mp4?Expires=1743679782&Signature=Xwskqq0t9JwS7AHBkZJ0ee3HcC~zZxUvK0mI~9EWpC3J71vVXfvXuz-hwBeejg1-UxXLDLV~g1SO9UV~0LfignCw-YQYaRTyINAhm7uqsyjU7D9arDWZIhJZYBbWVlU0b-C6A3s1accd-Ve247oLy74GaKSFEjLJWfaTpwzbAvFVmbUT5arZbzr8lNjD4GCTtGTTyqAMh36SV68UMjniV-Z1ZCVO8mdF20lUmRmfMBDHaszIT0x1PJL7JllRxdFbPP2gTNo-09peGbPhA2gdFr91gNadnnvOR8QJmii~ct4C1CgnqVhN363v3yHa5Ik0AzkFTIQDZ0ohrynV-xTdsw__&Key-Pair-Id=APKAIFLZBVQZ24NQH3KA",
        "The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
-       "LONG PLOT: The aging patriarch of an organized crime dynasty transfers control of his clandestine empire to his reluctant son.",
        32,
        12.99,
        '1972-03-24');
@@ -279,8 +277,8 @@ SET
 @director_id = (SELECT id FROM directors WHERE first_name = "Christopher" AND last_name = "Nolan");
 
 INSERT
-IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
-VALUES ("The Dark Knight", "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY2048_.jpg", "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", "LONG PLOT: When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", @director_id, 11.99, '2008-08-13');
+IGNORE INTO vods (title, image, plot, director_id, price, release_date)
+VALUES ("The Dark Knight", "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY2048_.jpg", "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", @director_id, 11.99, '2008-08-13');
 SET
 @vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight");
 

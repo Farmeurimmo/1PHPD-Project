@@ -13,7 +13,7 @@ class Vod {
 
         $sql = "
         SELECT DISTINCT 
-            vods.id, vods.image, vods.title, vods.short_plot, vods.director_id, vods.price, vods.release_date,
+            vods.id, vods.image, vods.title, vods.plot, vods.director_id, vods.price, vods.release_date,
             directors.first_name, directors.last_name,
             GROUP_CONCAT(DISTINCT categories.name ORDER BY categories.name SEPARATOR ', ') AS categories_array
         FROM vods
@@ -55,8 +55,7 @@ class Vod {
             vods.id,
             vods.image,
             vods.title,
-            vods.short_plot,
-            vods.long_plot,
+            vods.plot,
             vods.director_id,
             vods.price,
             vods.release_date,
@@ -108,7 +107,7 @@ class Vod {
     }
 
     public function getDirectorFilms($directorId) {
-        $sql = "SELECT DISTINCT directors.first_name, directors.last_name, vods.id, vods.title, vods.image, vods.short_plot, vods.price
+        $sql = "SELECT DISTINCT directors.first_name, directors.last_name, vods.id, vods.title, vods.image, vods.plot, vods.price
                 FROM directors INNER JOIN vods ON directors.id = vods.director_id
                 WHERE directors.id = :directorId";
 

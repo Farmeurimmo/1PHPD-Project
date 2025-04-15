@@ -7,12 +7,12 @@
         <p><b>Account created at:</b> <?php echo $user["created_at"] ?></p>
         <p><b>Account last updated at:</b> <?php echo $user["updated_at"] ?></p>
     </section>
-    
+
     <section id="notYou">
         <h2>Not you ?</h2>
         <a href="/1PHPD/auth/logout">Logout</a>
     </section>
-    
+
     <section id="yourFilms">
         <h2>Want to see the vods you bought ?</h2>
         <a href="/1PHPD/my/films">My VODs</a>

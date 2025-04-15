@@ -52,7 +52,7 @@ function videoCard($vod) {
     echo '<div class="cardinfo">';
     echo '<h3>' . htmlspecialchars($vod['title']) . '</h3>';
     priceAndBuyButton($vod);
-    echo '<p>' . htmlspecialchars($vod['short_plot']) . '</p>';
+    echo '<p>' . htmlspecialchars($vod['plot']) . '</p>';
     echo '</div>';
     echo '</a>';
 }
