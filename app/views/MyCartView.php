@@ -8,7 +8,7 @@ $_total = 0;
     <section id="items">
         <div class="delete-all">
             <h2>My Items</h2>
-            <form method="post" class="cart-form" action="/1PHPD/cart/remove">
+            <form method="post" class="cart-form" action="/1PHPD/cart/removeall">
                 <button type="submit" class="add-to-cart-button">
                     <i class="fa-solid fa-trash"></i> Delete All
                 </button>

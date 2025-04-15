@@ -3,11 +3,6 @@ require_once "BaseController.php";
 require_once __DIR__ . "/../models/Vod.php";
 
 class CategoryController extends BaseController {
-    private $vodModel;
-
-    public function __construct() {
-        $this->vodModel = new Vod();
-    }
 
     public function crime() {
         $category = "Crime";
@@ -16,14 +11,14 @@ class CategoryController extends BaseController {
     }
 
     function commonPart($category) {
-        $search = $_GET["search"] ?? null;
+        $search = $_GET["search"] ?? "";
         $page = $_GET["page"] ?? 1;
-        $director = $_GET["director"] ?? null;
+        $director = $_GET["director"] ?? "";
 
-        $vods = $this->vodModel->getVods($page, $category, $search, $director);
+        $vods = $this->getModel("vod")->getVods($page, $category, $search, $director);
 
-        $categories = $this->vodModel->getCategories();
-        $directors = $this->vodModel->getDirectors();
+        $categories = $this->getModel("vod")->getCategories();
+        $directors = $this->getModel("vod")->getDirectors();
 
         $this->renderView("CategoryView", ["title" => "Category: " . $category, "vods" => $vods, "category" => $category, "categories" => $categories, "directors" => $directors]);
     }

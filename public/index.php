@@ -24,6 +24,7 @@ $router->addRoute('/auth/', 'UserAuthController', 'index');
 $router->addRoute('/auth/register', 'UserAuthController', 'register');
 $router->addRoute('/auth/login', 'UserAuthController', 'login');
 $router->addRoute("/auth/logout", 'UserAuthController', 'logout');
+$router->addRoute("/auth/password", 'UserAuthController', 'password');
 
 $router->addRoute("/my/profile", 'MyController', 'myProfile');
 $router->addRoute("/my/films", 'MyController', 'myFilms');
@@ -35,6 +36,7 @@ $router->addRoute("/category/drama", 'CategoryController', 'drama');
 
 $router->addRoute("/cart/add", 'CartController', 'add');
 $router->addRoute("/cart/remove", 'CartController', 'remove');
+$router->addRoute("/cart/removeall", 'CartController', 'removeAll');
 
 $router->addRoute("/vod/*", 'VodController', 'index');
 

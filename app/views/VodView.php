@@ -24,7 +24,6 @@
                 include_once "commons/CommonVideoView.php";
                 priceAndBuyButton($vod);
             ?>
-
             <h3>Long plot</h3>
             <p><?php echo $vod["long_plot"] ?></p>
         </div>

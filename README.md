@@ -76,16 +76,14 @@ CREATE TABLE actors
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
-    last_name  VARCHAR(100) NOT NULL
-    ADD UNIQUE (first_name, last_name);
+    last_name  VARCHAR(100) NOT NULL ADD UNIQUE (first_name, last_name);
 );
 
 CREATE TABLE directors
 (
     id         INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
-    last_name  VARCHAR(100) NOT NULL
-    ADD UNIQUE (first_name, last_name);
+    last_name  VARCHAR(100) NOT NULL ADD UNIQUE (first_name, last_name);
 );
 
 CREATE TABLE vods
@@ -93,7 +91,6 @@ CREATE TABLE vods
     id           INT PRIMARY KEY AUTO_INCREMENT,
     title        VARCHAR(255)   NOT NULL,
     image        VARCHAR(512)   NOT NULL,
-    trailer      VARCHAR(512)   NOT NULL,
     short_plot   TEXT,
     long_plot    TEXT,
     director_id  INT,
@@ -148,20 +145,24 @@ CREATE TABLE sessions
 ```sql
 INSERT
 IGNORE INTO categories (name) VALUES (?);
-SET @category1_id = (SELECT id FROM categories WHERE name = ?);
+SET
+@category1_id = (SELECT id FROM categories WHERE name = ?);
 
 INSERT
 IGNORE INTO actors (first_name, last_name) VALUES (?, ?);
-SET @actor1_id = (SELECT id FROM actors WHERE first_name = ? AND last_name = ?);
+SET
+@actor1_id = (SELECT id FROM actors WHERE first_name = ? AND last_name = ?);
 
 INSERT
 IGNORE INTO directors (first_name, last_name) VALUES (?, ?);
-SET @director_id = (SELECT id FROM directors WHERE first_name = ? AND last_name = ?);
+SET
+@director_id = (SELECT id FROM directors WHERE first_name = ? AND last_name = ?);
 
 INSERT
 IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
 VALUES (?, ?, ?, ?, @director_id, ?, ?);
-SET @vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight" AND director_id = @director_id);
+SET
+@vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight" AND director_id = @director_id);
 
 INSERT
 IGNORE INTO vod_categories (vod_id, category_id) VALUES (@vod_id, @category1_id);
@@ -246,32 +247,40 @@ Adding the film "The Dark Knight"
 ```sql
 INSERT
 IGNORE INTO categories (name) VALUES ("Crime");
-SET @category1_id = (SELECT id FROM categories WHERE name = "Crime");
+SET
+@category1_id = (SELECT id FROM categories WHERE name = "Crime");
 INSERT
 IGNORE INTO categories (name) VALUES ("Drama");
-SET @category2_id = (SELECT id FROM categories WHERE name = "Drama");
+SET
+@category2_id = (SELECT id FROM categories WHERE name = "Drama");
 
 INSERT
 IGNORE INTO actors (first_name, last_name) VALUES ("Christian", "Bale");
-SET @actor1_id = (SELECT id FROM actors WHERE first_name = "Christian" AND last_name = "Bale");
+SET
+@actor1_id = (SELECT id FROM actors WHERE first_name = "Christian" AND last_name = "Bale");
 INSERT
 IGNORE INTO actors (first_name, last_name) VALUES ("Heath", "Ledger");
-SET @actor2_id = (SELECT id FROM actors WHERE first_name = "Heath" AND last_name = "Ledger");
+SET
+@actor2_id = (SELECT id FROM actors WHERE first_name = "Heath" AND last_name = "Ledger");
 INSERT
 IGNORE INTO actors (first_name, last_name) VALUES ("Aaron", "Eckhart");
-SET @actor3_id = (SELECT id FROM actors WHERE first_name = "Aaron" AND last_name = "Eckhart");
+SET
+@actor3_id = (SELECT id FROM actors WHERE first_name = "Aaron" AND last_name = "Eckhart");
 INSERT
 IGNORE INTO actors (first_name, last_name) VALUES ("Michael", "Caine");
-SET @actor4_id = (SELECT id FROM actors WHERE first_name = "Michael" AND last_name = "Caine");
+SET
+@actor4_id = (SELECT id FROM actors WHERE first_name = "Michael" AND last_name = "Caine");
 
 INSERT
 IGNORE INTO directors (first_name, last_name) VALUES ("Christopher", "Nolan");
-SET @director_id = (SELECT id FROM directors WHERE first_name = "Christopher" AND last_name = "Nolan");
+SET
+@director_id = (SELECT id FROM directors WHERE first_name = "Christopher" AND last_name = "Nolan");
 
 INSERT
 IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
 VALUES ("The Dark Knight", "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY2048_.jpg", "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", "LONG PLOT: When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", @director_id, 11.99, '2008-08-13');
-SET @vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight");
+SET
+@vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight");
 
 INSERT
 IGNORE INTO vod_categories (vod_id, category_id) VALUES (@vod_id, @category1_id);
