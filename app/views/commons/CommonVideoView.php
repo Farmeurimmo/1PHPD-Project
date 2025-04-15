@@ -48,7 +48,7 @@ function priceAndBuyButton($vod) {
 function videoCard($vod) {
     include_once __DIR__ . "/../../models/User.php";
     echo '<a class="card" href="/1PHPD/vod/' . $vod['id'] . '">';
-    echo '<img src="' . htmlspecialchars($vod['image']) . '" alt="' . htmlspecialchars($vod['title']) . '">';
+    echo '<img src="' . htmlspecialchars($vod['image']) . '" alt="' . htmlspecialchars($vod['title']) . '" loading="lazy">';
     echo '<div class="cardinfo">';
     echo '<h3>' . htmlspecialchars($vod['title']) . '</h3>';
     priceAndBuyButton($vod);

@@ -3,7 +3,7 @@
     <h2>Informations</h2>
     <div class="vod-infos">
         <div class="image-container">
-            <img src="<?php echo $vod["image"] ?>" alt="<?php echo $vod["title"] ?>">
+            <img src="<?php echo $vod["image"] ?>" alt="<?php echo $vod["title"] ?>" loading="lazy">
         </div>
         <div class="info-container">
             <h3>Director: </h3>
