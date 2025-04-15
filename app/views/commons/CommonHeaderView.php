@@ -24,14 +24,14 @@
                     <?php endif; ?>
                 </a>
             </div>
-            
+
             <div class="dropdown">
                 <button class="dropbtn">
                     <span><i class="fa-solid fa-user"></i></span>
                     <span><?php echo $_SESSION["username"]; ?></span>
                 </button>
                 <div class="dropdown-content">
-                    <a href="/1PHPD/my/profile">My Profil</a>
+                    <a href="/1PHPD/my/profile">My Profile</a>
                     <a href="/1PHPD/my/films">My Films</a>
                     <a href="/1PHPD/auth/logout">Sign Out</a>
                 </div>

@@ -36,5 +36,7 @@ $router->addRoute("/category/drama", 'CategoryController', 'drama');
 $router->addRoute("/cart/add", 'CartController', 'add');
 $router->addRoute("/cart/remove", 'CartController', 'remove');
 
+$router->addRoute("/vod/*", 'VodController', 'index');
+
 $parsedUrl = str_replace('/1PHPD', '', $_SERVER['REQUEST_URI']);
 $router->dispatch($parsedUrl);
