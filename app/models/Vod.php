@@ -31,7 +31,7 @@ class Vod {
         )
         GROUP BY vods.id
         LIMIT :limit OFFSET :offset
-    ";
+        ";
 
         $query = $this->db->prepare($sql);
         $searchParam = isset($search) ? "%$search%" : null;

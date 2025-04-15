@@ -10,10 +10,10 @@ class HomeController extends BaseController {
     }
 
     public function index() {
-        $search = $_GET["search"] ?? null;
-        $category = $_GET["category"] ?? null;
+        $search = $_GET["search"] ?? "";
+        $category = $_GET["category"] ?? "";
         $page = $_GET["page"] ?? 1;
-        $director = $_GET["director"] ?? null;
+        $director = $_GET["director"] ?? "";
 
         $vods = $this->vodModel->getVods($page, $category, $search, $director);
 
