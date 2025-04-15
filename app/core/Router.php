@@ -8,15 +8,33 @@ class Router {
     }
 
     public function dispatch($uri) {
-        //FIXME: redirect to 404 page if route not found or if controller or action not found
-
         $parsedUrl = parse_url($uri, PHP_URL_PATH);
-        if (!isset($this->routes[$parsedUrl])) {
-            $this->sendError(404, "404 Not Found");
+
+        if (isset($this->routes[$parsedUrl])) {
+            $route = $this->routes[$parsedUrl];
+        } else {
+            $match = null;
+            foreach ($this->routes as $path => $routeInfo) {
+                if (str_contains($path, '*')) {
+                    $basePath = rtrim(strtok($path, '*'), '/');
+                    if (str_starts_with($parsedUrl, $basePath)) {
+                        $wildcardValue = trim(substr($parsedUrl, strlen($basePath)), '/');
+                        $routeInfo['params'] = [$wildcardValue];
+                        $match = $routeInfo;
+                        break;
+                    }
+                }
+            }
+
+            if (!$match) {
+                $this->sendError(404, "404 Not Found");
+            }
+
+            $route = $match;
         }
 
-        $controllerName = $this->routes[$uri]['controller'];
-        $actionName = $this->routes[$uri]['action'];
+        $controllerName = $route['controller'];
+        $actionName = $route['action'];
         $controllerFile = __DIR__ . "/../controllers/" . $controllerName . ".php";
 
         if (!file_exists($controllerFile)) {
@@ -35,7 +53,7 @@ class Router {
             $this->sendError(500, "Error: Method '$actionName' not found in controller '$controllerName'.");
         }
 
-        $params = $this->routes[$uri]['params'];
+        $params = $route['params'] ?? [];
 
         $controller->$actionName(...$params);
     }

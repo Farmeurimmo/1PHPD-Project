@@ -79,12 +79,4 @@ class Vod {
         $query->execute();
         return $query->fetchColumn();
     }
-
-    public function getVodsId() {
-        $sql = "SELECT id FROM vods";
-        $query = $this->db->prepare($sql);
-        $query->execute();
-        return $query->fetchAll(PDO::FETCH_COLUMN);
-    }
-
 }
