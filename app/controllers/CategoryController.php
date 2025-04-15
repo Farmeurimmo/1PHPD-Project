@@ -16,14 +16,16 @@ class CategoryController extends BaseController {
     }
 
     function commonPart($category) {
-        $vods = $this->vodModel->getVods(1, $category);
+        $search = $_GET["search"] ?? null;
+        $page = $_GET["page"] ?? 1;
+        $director = $_GET["director"] ?? null;
 
-        if (empty($vods)) {
-            header("Location: /1PHPD/");
-            exit(404);
-        }
+        $vods = $this->vodModel->getVods($page, $category, $search, $director);
 
-        $this->renderView("CategoryView", ["title" => "Category: " . $category, "vods" => $vods, "category" => $category]);
+        $categories = $this->vodModel->getCategories();
+        $directors = $this->vodModel->getDirectors();
+
+        $this->renderView("CategoryView", ["title" => "Category: " . $category, "vods" => $vods, "category" => $category, "categories" => $categories, "directors" => $directors]);
     }
 
     public function drama() {

@@ -1,5 +1,3 @@
-
-
 <div class="auth">
     <div class="authcontainer">
         <div class="signinup">
@@ -52,6 +50,7 @@
         <script>
             signin = document.querySelector("#signin");
             signup = document.querySelector("#signup");
+
             function hash() {
                 var hash = window.location.hash;
                 console.log(hash);
@@ -72,8 +71,9 @@
                     signup.style.backgroundColor = "rgb(25, 25, 25)";
                 }
             }
+
             document.addEventListener("DOMContentLoaded", hash());
-            window.addEventListener("hashchange", function() {
+            window.addEventListener("hashchange", function () {
                 hash();
                 console.log("hash changed");
             });

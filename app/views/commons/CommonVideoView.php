@@ -1,7 +1,7 @@
 <?php
 function videoCard($vod) {
     include_once __DIR__ . "/../../models/User.php";
-    echo '<div class="card">';
+    echo '<a class="card" href="/1PHPD/vod/' . $vod['id'] . '">';
     echo '<img src="' . htmlspecialchars($vod['image']) . '" alt="' . htmlspecialchars($vod['title']) . '">';
     echo '<div class="cardinfo">';
     echo '<h3>' . htmlspecialchars($vod['title']) . '</h3>';
@@ -49,6 +49,7 @@ function videoCard($vod) {
     echo '</span>';
     echo '<p>' . htmlspecialchars($vod['short_plot']) . '</p>';
     echo '</div>';
-    echo '</div>';
+    echo '</a>';
 }
+
 ?>

@@ -85,7 +85,11 @@ class MyController extends BaseController {
 
             setcookie("cart", json_encode([]), time() - 3600, "/1PHPD");
         } catch (Exception $e) {
-            $_SESSION["errorMessage"] = $e->getMessage();
+            $errorIdFilm = $_SESSION["errorFilm"];
+
+            $film_title = $this->vodModel->getFilmTitle($errorIdFilm);
+
+            $_SESSION["errorMessage"] = $e->getMessage() . " (" . $film_title . ")";
         }
 
         $brought = [];
