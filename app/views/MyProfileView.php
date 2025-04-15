@@ -1,6 +1,6 @@
 <div>
-    <p>Username: <?php echo $user["username"] ?></p>
-    <p>Email: <?php echo $user["email"] ?></p>
-    <p>Created at: <?php echo $user["created_at"] ?></p>
-    <p>Updated at: <?php echo $user["updated_at"] ?></p>
+    <h1>Welcome <?php echo $user["username"] ?></h1>
+    <p>Your email: <?php echo $user["email"] ?></p>
+    <p>Account created at: <?php echo $user["created_at"] ?></p>
+    <p>Account last updated at: <?php echo $user["updated_at"] ?></p>
 </div>

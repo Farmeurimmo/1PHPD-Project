@@ -37,23 +37,23 @@ The user should have all privileges on the database to prevent any issues.
 
 ## Database
 
-* **vods** (id, title, image, short_plot, long_plot, director_id, price, release_date)
+- **vods** (id, title, image, short_plot, long_plot, director_id, price, release_date)
 
-* **vod_categories** (id, vod_id, category_id)
+- **vod_categories** (id, vod_id, category_id)
 
-* **directors** (id, first_name, last_name)
+- **directors** (id, first_name, last_name)
 
-* **actors** (id, first_name, last_name)
+- **actors** (id, first_name, last_name)
 
-* **actor_films** (id, actor_id, vod_id)
+- **actor_films** (id, actor_id, vod_id)
 
-* **categories** (id, name)
+- **categories** (id, name)
 
-* **users** (id, username, password_hashed, email, role, created_at, updated_at)
+- **users** (id, username, password_hashed, email, role, created_at, updated_at)
 
-* **films_purchased** (id, user_id, vod_id, purchase_date)
+- **films_purchased** (id, user_id, vod_id, purchase_date)
 
-* **sessions** (id, user_id, token, expiration_date)
+- **sessions** (id, user_id, token, expiration_date)
 
 ```sql
 CREATE TABLE users
@@ -77,6 +77,7 @@ CREATE TABLE actors
     id         INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
     last_name  VARCHAR(100) NOT NULL
+    ADD UNIQUE (first_name, last_name);
 );
 
 CREATE TABLE directors
@@ -84,6 +85,7 @@ CREATE TABLE directors
     id         INT PRIMARY KEY AUTO_INCREMENT,
     first_name VARCHAR(100) NOT NULL,
     last_name  VARCHAR(100) NOT NULL
+    ADD UNIQUE (first_name, last_name);
 );
 
 CREATE TABLE vods
@@ -146,22 +148,26 @@ CREATE TABLE sessions
 ```sql
 INSERT
 IGNORE INTO categories (name) VALUES (?);
-       
+SET @category1_id = (SELECT id FROM categories WHERE name = ?);
+
 INSERT
 IGNORE INTO actors (first_name, last_name) VALUES (?, ?);
-       
+SET @actor1_id = (SELECT id FROM actors WHERE first_name = ? AND last_name = ?);
+
 INSERT
 IGNORE INTO directors (first_name, last_name) VALUES (?, ?);
-       
+SET @director_id = (SELECT id FROM directors WHERE first_name = ? AND last_name = ?);
+
 INSERT
 IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
-VALUES (?, ?, ?, ?, ?, ?, ?);
-       
+VALUES (?, ?, ?, ?, @director_id, ?, ?);
+SET @vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight" AND director_id = @director_id);
+
 INSERT
-IGNORE INTO vod_categories (vod_id, category_id) VALUES (?, ?);
-       
+IGNORE INTO vod_categories (vod_id, category_id) VALUES (@vod_id, @category1_id);
+
 INSERT
-IGNORE INTO actor_films (actor_id, vod_id) VALUES (?, ?);
+IGNORE INTO actor_films (actor_id, vod_id) VALUES (@actor1_id, @vod_id);
 ```
 
 Adding the film "The Shawshank Redemption"
@@ -233,4 +239,51 @@ IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, relea
        32,
        12.99,
        '1972-03-24');
+```
+
+Adding the film "The Dark Knight"
+
+```sql
+INSERT
+IGNORE INTO categories (name) VALUES ("Crime");
+SET @category1_id = (SELECT id FROM categories WHERE name = "Crime");
+INSERT
+IGNORE INTO categories (name) VALUES ("Drama");
+SET @category2_id = (SELECT id FROM categories WHERE name = "Drama");
+
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ("Christian", "Bale");
+SET @actor1_id = (SELECT id FROM actors WHERE first_name = "Christian" AND last_name = "Bale");
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ("Heath", "Ledger");
+SET @actor2_id = (SELECT id FROM actors WHERE first_name = "Heath" AND last_name = "Ledger");
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ("Aaron", "Eckhart");
+SET @actor3_id = (SELECT id FROM actors WHERE first_name = "Aaron" AND last_name = "Eckhart");
+INSERT
+IGNORE INTO actors (first_name, last_name) VALUES ("Michael", "Caine");
+SET @actor4_id = (SELECT id FROM actors WHERE first_name = "Michael" AND last_name = "Caine");
+
+INSERT
+IGNORE INTO directors (first_name, last_name) VALUES ("Christopher", "Nolan");
+SET @director_id = (SELECT id FROM directors WHERE first_name = "Christopher" AND last_name = "Nolan");
+
+INSERT
+IGNORE INTO vods (title, image, short_plot, long_plot, director_id, price, release_date)
+VALUES ("The Dark Knight", "https://m.media-amazon.com/images/M/MV5BMTMxNTMwODM0NF5BMl5BanBnXkFtZTcwODAyMTk2Mw@@._V1_FMjpg_UY2048_.jpg", "When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", "LONG PLOT: When a menace known as the Joker wreaks havoc and chaos on the people of Gotham, Batman, James Gordon and Harvey Dent must work together to put an end to the madness.", @director_id, 11.99, '2008-08-13');
+SET @vod_id = (SELECT id FROM vods WHERE title = "The Dark Knight");
+
+INSERT
+IGNORE INTO vod_categories (vod_id, category_id) VALUES (@vod_id, @category1_id);
+INSERT
+IGNORE INTO vod_categories (vod_id, category_id) VALUES (@vod_id, @category2_id);
+
+INSERT
+IGNORE INTO actor_films (actor_id, vod_id) VALUES (@actor1_id, @vod_id);
+INSERT
+IGNORE INTO actor_films (actor_id, vod_id) VALUES (@actor2_id, @vod_id);
+INSERT
+IGNORE INTO actor_films (actor_id, vod_id) VALUES (@actor3_id, @vod_id);
+INSERT
+IGNORE INTO actor_films (actor_id, vod_id) VALUES (@actor4_id, @vod_id);
 ```
