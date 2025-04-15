@@ -7,7 +7,7 @@ class Vod {
         $this->db = Database::getInstance();
     }
 
-    public function getVods($page = 1, $category = null, $search = null) {
+    public function getVods($page = 1, $category = null, $search = null, $director = null) {
         $limit = 10;
         $offset = ($page - 1) * $limit;
 
@@ -22,6 +22,7 @@ class Vod {
         INNER JOIN directors ON vods.director_id = directors.id
         WHERE (:search IS NULL OR vods.title LIKE :search)
         AND (:category IS NULL OR categories.name LIKE :category)
+        AND (:director IS NULL OR directors.first_name LIKE :director OR directors.last_name LIKE :director)
         GROUP BY vods.id
         LIMIT :limit OFFSET :offset
     ";
@@ -29,9 +30,11 @@ class Vod {
         $query = $this->db->prepare($sql);
         $searchParam = isset($search) ? "%$search%" : null;
         $categoryParam = isset($category) ? "%$category%" : null;
+        $directorParam = isset($director) ? "%$director%" : null;
 
         $query->bindParam(':search', $searchParam);
         $query->bindParam(':category', $categoryParam);
+        $query->bindParam(':director', $directorParam);
         $query->bindParam(':limit', $limit, PDO::PARAM_INT);
         $query->bindParam(':offset', $offset, PDO::PARAM_INT);
 
