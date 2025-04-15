@@ -44,6 +44,67 @@ The user should have all privileges on the database to prevent any issues.
 
 ---
 
+## Project Structure
+
+The .htaccess file is used to redirect all requests to the `public/index.php` file, which is the entry point of the
+application. (It also prevents direct access to critical files like the .env file, the config file, etc.)
+
+The Router class uses the routes given in the `public/index.php` file to determine which controller and method to call based on the URL.
+
+We chose the **MVC (Model-View-Controller)** architecture for this project.
+
+### Why MVC?
+
+After some research about the best practices for php development, we found that the MVC architecture is a good and not too
+complex way to structure a PHP application.
+
+Source:
+- https://www.univ-orleans.fr/iut-orleans/informatique/intra/tuto/php/php-mvc.html (A little bit outdated but still relevant)
+- https://dyma.fr/blog/introduction-au-mvc-avec-php/ (pretty good explanation with recent examples)
+
+### Code architecture
+
+#### `controllers`
+Handle the app’s logic and send data to the views. (like a bridge)
+
+Note: all controllers extend the `BaseController` class, which provides common functionality like getting a model instance
+and rendering views.
+
+#### `models`
+Work with the database. They define and manage the data.
+
+#### `views`
+Display data to the user. These are HTML files with embedded PHP.
+
+Note: There is a layout file to structure the rendered views. By default, the layout file add the header, the footer, 
+the CSS, JS file for the icons and the main html structure in which the view will be rendered.
+
+Note 2: There are some reusable components that are imported in the views like `CommonSearchBarView.php` to prevent code
+duplication.
+
+#### `config`
+
+Stores the database logins and Database class.
+
+#### `public`
+
+As mentioned before, this is the entry point of the application. It contains the `index.php` file that handles all
+requests and routes them to the appropriate controller and method via the Router class contained in the `core` folder.
+
+There are also the CSS and JS files for the application in the subfolder `assets`.
+
+#### `core`
+
+Contains the Router class that handles the routing of the application. Based on the routes defined, it will trigger 
+the function in the appropriate controller.
+
+#### `sql`
+
+SQL dump export of the database.
+
+
+---
+
 ## Database
 
 - **vods** (id, title, image, plot, director_id, price, release_date)
