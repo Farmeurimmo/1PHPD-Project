@@ -14,7 +14,7 @@ class CartController extends BaseController {
 
         $cart = isset($_COOKIE["cart"]) ? json_decode($_COOKIE["cart"], true) : [];
 
-        $product_id = $_POST["vod_id"];
+        $product_id = htmlspecialchars($_POST["vod_id"]);
 
         if (!isset($cart[$product_id])) {
             $cart[$product_id] = 1;
@@ -34,7 +34,7 @@ class CartController extends BaseController {
 
         $cart = isset($_COOKIE["cart"]) ? json_decode($_COOKIE["cart"], true) : [];
 
-        $product_id = $_POST["vod_id"];
+        $product_id = htmlspecialchars($_POST["vod_id"]);
 
         if (isset($cart[$product_id])) {
             unset($cart[$product_id]);

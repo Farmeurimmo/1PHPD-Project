@@ -16,9 +16,9 @@ class CategoryController extends BaseController {
     }
 
     function commonPart($category) {
-        $search = $_GET["search"] ?? null;
-        $page = $_GET["page"] ?? 1;
-        $director = $_GET["director"] ?? null;
+        $search = htmlspecialchars($_GET["search"] ?? null);
+        $page = htmlspecialchars($_GET["page"] ?? 1);
+        $director = htmlspecialchars($_GET["director"] ?? null);
 
         $vods = $this->vodModel->getVods($page, $category, $search, $director);
 
