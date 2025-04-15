@@ -38,7 +38,7 @@ class User {
         $_SESSION["username"] = $username;
 
         $sql = "INSERT INTO sessions (user_id, token, expiration_date) VALUES (:user_id, :token, :expiration_date) 
-ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
+            ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
 
         $stmt = $this->db->prepare($sql);
 
@@ -53,29 +53,81 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
         }
     }
 
-    function login($email, $password) {
-        $sql = "SELECT * FROM users WHERE email = :email";
+    function changePassword($userId, $newPassword) {
+        $sql = "UPDATE users SET password_hashed = :password_hashed WHERE id = :user_id";
 
         $stmt = $this->db->prepare($sql);
 
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        $stmt->bindParam(':password_hashed', $hashedPassword);
+        $stmt->bindParam(':user_id', $userId);
 
-        if (!password_verify($password, $result['password_hashed'])) {
-            throw new Exception("Invalid credentials");
+        if (!$stmt->execute()) {
+            throw new Exception("Failed to update password");
         }
+    }
 
-        if ($stmt->rowCount() == 0) {
-            throw new Exception("User not found");
-        }
+    function login($email, $password) {
+        $user = $this->getUserByEmail($email);
+
+        $this->checkPassword($password, $email);
 
         try {
-            $this->generateSession($result['id'], $result['username']);
+            $this->generateSession($user['id'], $user['username']);
         } catch (Exception $e) {
             throw new Exception("Failed to create session");
         }
+    }
+
+    private function getUserByEmail($email) {
+        $sql = "SELECT * FROM users WHERE email = :email";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':email', $email);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            throw new Exception("User not found");
+        }
+
+        return $user;
+    }
+
+    function checkPassword($inputPassword, $email = null, $userId = null) {
+        $user = null;
+
+        if ($email) {
+            $user = $this->getUserByEmail($email);
+        } elseif ($userId) {
+            $user = $this->getUserById($userId, true);
+        }
+
+        if (!password_verify($inputPassword, $user['password_hashed'])) {
+            throw new Exception("Invalid credentials");
+        }
+
+        return true;
+    }
+
+    function getUserById($userId, $withPassword = false) {
+        $sql = "SELECT * FROM users WHERE id = :user_id";
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$user) {
+            throw new Exception("User not found");
+        }
+
+        if (!$withPassword) {
+            unset($user['password_hashed']);
+        }
+
+        return $user;
     }
 
     function isLoggedIn() {
@@ -125,6 +177,16 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
         }
     }
 
+    function logoutEverything($userId) {
+        $sql = "DELETE FROM sessions WHERE user_id = :user_id";
+
+        $stmt = $this->db->prepare($sql);
+
+        $stmt->bindParam(':user_id', $userId);
+        $stmt->execute();
+
+    }
+
     function getUserFilms($userId) {
         $sql = "SELECT vods.id, vods.image, vods.title, vods.short_plot, vods.director_id, vods.price, vods.release_date,
             directors.first_name, directors.last_name,
@@ -144,25 +206,6 @@ ON DUPLICATE KEY UPDATE token = :token, expiration_date = :expiration_date";
         $stmt->execute();
 
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-
-    function getUserById($userId) {
-        $sql = "SELECT * FROM users WHERE id = :user_id";
-
-        $stmt = $this->db->prepare($sql);
-
-        $stmt->bindParam(':user_id', $userId);
-        $stmt->execute();
-
-        if ($stmt->rowCount() == 0) {
-            throw new Exception("User not found");
-        }
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        unset($result['password_hashed']);
-
-        return $result;
     }
 
     function checkoutCart($userId, $cart) {

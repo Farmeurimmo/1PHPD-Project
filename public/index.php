@@ -24,6 +24,7 @@ $router->addRoute('/auth/', 'UserAuthController', 'index');
 $router->addRoute('/auth/register', 'UserAuthController', 'register');
 $router->addRoute('/auth/login', 'UserAuthController', 'login');
 $router->addRoute("/auth/logout", 'UserAuthController', 'logout');
+$router->addRoute("/auth/password", 'UserAuthController', 'password');
 
 $router->addRoute("/my/profile", 'MyController', 'myProfile');
 $router->addRoute("/my/films", 'MyController', 'myFilms');
