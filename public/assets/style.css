@@ -72,7 +72,7 @@ main {
     border-radius: 10px 10px 0 0;
 }
 
-.card span {
+.buy-btn-container {
     display: flex;
     gap: 20px;
     align-items: center;
@@ -388,6 +388,44 @@ nav div > ul li:hover .category {
 .signform input[type="submit"]:hover {
     background-color: var(--dark-pink);
     color: var(--off-white);
+}
+
+/*********************************** Vod *************************************/
+
+.vod-infos {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: start;
+    gap: 20px;
+}
+
+.image-container {
+    min-width: 300px;
+    max-width: 30vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.image-container img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.trailer-container {
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.trailer-container iframe {
+    width: clamp(300px, 50%, 50%);
+    display: block;
 }
 
 /*********************************** Cart ************************************/
