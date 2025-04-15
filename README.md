@@ -126,6 +126,13 @@ SQL dump export of the database.
 - **Responsive on mobile and desktop**
 - **Use fontawesome for icons**
 
+### Possible improvements
+
+- **Checkout system**: Currently you don't have to pay to buy a film.
+- **User roles**: Currently, all users are treated the same. We could add a role system to differentiate between
+  admins and regular users. (With this we could implement comments, ratings, admin management, etc.)
+- **Film recommendations**: recommendations based on the user activity and preferences.
+
 ---
 
 ## Database
