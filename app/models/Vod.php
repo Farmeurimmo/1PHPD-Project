@@ -106,4 +106,16 @@ class Vod {
 
         return $query->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    public function getDirectorFilms($directorId) {
+        $sql = "SELECT DISTINCT directors.first_name, directors.last_name, vods.id, vods.title, vods.image, vods.short_plot, vods.price
+                FROM directors INNER JOIN vods ON directors.id = vods.director_id
+                WHERE directors.id = :directorId";
+
+        $query = $this->db->prepare($sql);
+        $query->bindParam(':directorId', $directorId, PDO::PARAM_INT);
+        $query->execute();
+
+        return $query->fetchAll(PDO::FETCH_ASSOC);
+    }
 }

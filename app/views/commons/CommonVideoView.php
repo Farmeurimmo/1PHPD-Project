@@ -1,11 +1,7 @@
 <?php
-function videoCard($vod) {
-    include_once __DIR__ . "/../../models/User.php";
-    echo '<a class="card" href="/1PHPD/vod/' . $vod['id'] . '">';
-    echo '<img src="' . htmlspecialchars($vod['image']) . '" alt="' . htmlspecialchars($vod['title']) . '">';
-    echo '<div class="cardinfo">';
-    echo '<h3>' . htmlspecialchars($vod['title']) . '</h3>';
-    echo '<span>';
+
+function priceAndBuyButton($vod) {
+    echo '<span class="buy-btn-container">';
     echo '<h4>' . htmlspecialchars($vod['price']) . '€</h4>';
 
     if (isset($_SESSION["username"]) && isset($_SESSION["userId"])) {
@@ -47,6 +43,15 @@ function videoCard($vod) {
         echo '</a>';
     }
     echo '</span>';
+}
+
+function videoCard($vod) {
+    include_once __DIR__ . "/../../models/User.php";
+    echo '<a class="card" href="/1PHPD/vod/' . $vod['id'] . '">';
+    echo '<img src="' . htmlspecialchars($vod['image']) . '" alt="' . htmlspecialchars($vod['title']) . '">';
+    echo '<div class="cardinfo">';
+    echo '<h3>' . htmlspecialchars($vod['title']) . '</h3>';
+    priceAndBuyButton($vod);
     echo '<p>' . htmlspecialchars($vod['short_plot']) . '</p>';
     echo '</div>';
     echo '</a>';
