@@ -1,4 +1,7 @@
 <h1>Internet Movies DataBase & co</h1>
+<?php include_once "commons/CommonSearchBarView.php"; ?>
+<?php searchBar($categories, $directors); ?>
+
 <section id="about">
     <h2>About</h2>
     <p>Internet Movies DataBase & co is your one-stop platform for all things
@@ -10,9 +13,6 @@
 </section>
 
 <section id="recomended">
-    <?php include_once "commons/CommonSearchBarView.php"; ?>
-    <?php searchBar($categories, $directors); ?>
-
     <h2>Recomended</h2>
 
     <div class="grid">
