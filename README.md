@@ -14,17 +14,17 @@ By:
 
 Two options are available for installation:
 
-1. If using docker or something else, bind your web server to the parent dir of `1PHPD` directory and go to
+1. If using XAMPP or equivalent, place the `1PHPD` directory in the `htdocs` folder and go to `localhost/1PHPD` in your
+   browser.
+2. If using docker or something else, bind your web server to the parent dir of `1PHPD` directory and go to
    `localhost:8000/1PHPD` in your
    browser.
-2. If using XAMPP or equivalent, place the `1PHPD` directory in the `htdocs` folder and go to `localhost/1PHPD` in your
-   browser.
 
-### Import the .sql file
+### Import the .sql file for the database
 
 On your phpMyAdmin, in the desired database, import the `1PHPD.sql` file located in the `sql` directory.
 
-### Configuration
+### Configuration (for database connection)
 
 Create a `DatabaseConfig.php` file in `config` directory with the following content (please replace the values with your
 own):
@@ -39,6 +39,8 @@ const DB_PORT = '3306';
 ```
 
 The user should have all privileges on the database to prevent any issues.
+
+**You should be ready to go.**
 
 ---
 
