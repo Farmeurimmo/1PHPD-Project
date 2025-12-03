@@ -4,6 +4,8 @@ Score obtained: 90.00/100
 
 Project carried by Flora and me as part of our training at SUPINFO to apply the Php programming language.
 
+PS: The data from movies is used for educational purposes.
+
 By:
 
 - PETIT Flora
