@@ -1,14 +1,18 @@
 # 1PHPD Project
 
-1. [Requirements](#requirements)
-2. [Installation](#installation)
-3. [Project Structure](#project-structure)
-4. [Database](#database)
+Score obtained: 90.00/100
+
+Project carried by Flora and me as part of our training at SUPINFO to apply the Php programming language.
 
 By:
 
 - PETIT Flora
 - MASSONNAT Robin
+
+1. [Requirements](#requirements)
+2. [Installation](#installation)
+3. [Project Structure](#project-structure)
+4. [Database](#database)
 
 ## Requirements
 
